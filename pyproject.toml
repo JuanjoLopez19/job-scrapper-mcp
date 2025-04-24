@@ -1,0 +1,19 @@
+[project]
+name = "mcp-python"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "bs4>=0.0.2",
+    "mcp[cli]>=1.6.0",
+    "pydantic>=2.11.3",
+    "requests>=2.32.3",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+work-parser = "job_offer_scrapper:main"
