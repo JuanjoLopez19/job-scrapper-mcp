@@ -23,16 +23,17 @@ class IndeedScrapper(JobOfferExtractor):
         return container.find("div", {"id": "jobDescriptionText"}).text.strip()
 
     def find_job_criteria(self, job_offer: bs, **kwargs):
-        header = job_offer.find(
-            "div",
-            {"class": "jobsearch-InfoHeaderContainer jobsearch-DesktopStickyContainer"},
-        )
+        return None
+        # header = job_offer.find(
+        #     "div",
+        #     {"class": "jobsearch-InfoHeaderContainer jobsearch-DesktopStickyContainer"},
+        # )
 
-        header_container = header.find(
-            "div", {"data-testid": "jobsearch-CompanyInfoContainer"}
-        )
+        # header_container = header.find(
+        #     "div", {"data-testid": "jobsearch-CompanyInfoContainer"}
+        # )
 
-        print(header_container.text.strip().split("\n"))
+        # print(header_container.text.strip().split("\n"))
 
 
 if __name__ == "__main__":
