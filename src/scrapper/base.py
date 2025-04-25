@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 from bs4 import BeautifulSoup as bs
+from pydantic_core import Url
 from requests import Session, exceptions
 
 from shared.constants import USER_AGENTS
@@ -10,7 +11,7 @@ from shared.constants import USER_AGENTS
 
 @dataclass(slots=True)
 class JobOfferExtractor(ABC):
-    url: str
+    url: Url
     session = Session()
     headers = {
         "User-Agent": random.choice(USER_AGENTS),
@@ -26,7 +27,9 @@ class JobOfferExtractor(ABC):
             return bs(response.text, "html.parser")
         except exceptions.RequestException as e:
             print(f"Error fetching the URL: {e}")
-            return None
+
+            html = self.__extract_html_selenium()
+            return html
 
     def extract(self):
         self.html = self.__extract_html()
@@ -36,11 +39,28 @@ class JobOfferExtractor(ABC):
         job_offer_info = self.find_job_offer_info(self.html)
         if job_offer_info is None:
             return None
+
         job_description = self.find_job_description(job_offer_info)
         self.description = job_description if job_description else None
 
         job_criteria = self.find_job_criteria(job_offer_info)
         self.criteria = job_criteria if job_criteria else None
+
+    def __extract_html_selenium(self):
+        from seleniumbase import Driver
+
+        driver = Driver(uc=True, headless=True, disable_gpu=True)
+        try:
+            driver.get(str(self.url))
+            driver.sleep(5)
+
+            html = bs(driver.page_source, "html.parser")
+            driver.quit()
+
+            return html
+        except Exception as e:
+            print(f"Error with selenium: {e}")
+            return None
 
     def get_job_description(self) -> str | None:
         return self.description
