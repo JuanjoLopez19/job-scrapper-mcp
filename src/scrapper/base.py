@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 from bs4 import BeautifulSoup as bs
+from pydantic_core import Url
 from requests import Session, exceptions
 
 from shared.constants import USER_AGENTS
@@ -10,7 +11,7 @@ from shared.constants import USER_AGENTS
 
 @dataclass(slots=True)
 class JobOfferExtractor(ABC):
-    url: str
+    url: Url
     session = Session()
     headers = {
         "User-Agent": random.choice(USER_AGENTS),
@@ -26,6 +27,9 @@ class JobOfferExtractor(ABC):
             return bs(response.text, "html.parser")
         except exceptions.RequestException as e:
             print(f"Error fetching the URL: {e}")
+
+            print("Trying with selenium...")
+            self.__extract_html_selenium()
             return None
 
     def extract(self):
@@ -41,6 +45,21 @@ class JobOfferExtractor(ABC):
 
         job_criteria = self.find_job_criteria(job_offer_info)
         self.criteria = job_criteria if job_criteria else None
+
+    def __extract_html_selenium(self):
+        from seleniumwire import webdriver
+
+        def interceptor(request):
+            request.headers["User-Agent"] = random.choice(USER_AGENTS)
+            request.headers["Accept-Language"] = "en-US,en;q=0.9"
+            request.headers["Connection"] = "keep-alive"
+
+        driver = webdriver.Chrome()
+        driver.request_interceptor = interceptor
+
+        driver.get(self.url.__str__())
+
+        # Wait for the page to load
 
     def get_job_description(self) -> str | None:
         return self.description

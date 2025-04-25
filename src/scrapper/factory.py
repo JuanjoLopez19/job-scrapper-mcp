@@ -48,5 +48,9 @@ class FactoryScrapper:
             from scrapper.tecnoempleo import TecnoEmpleoScrapper
 
             return TecnoEmpleoScrapper(url)
+        elif "indeed" in domain:
+            from scrapper.indeed import IndeedScrapper
+
+            return IndeedScrapper(url)
         else:
             raise ScrapperSelectionError(f"Unsupported domain: {domain}")

@@ -36,3 +36,14 @@ class LinkedinScrapper(JobOfferExtractor):
             level = li.find("span").text.strip()
             criteria_list.append(f"{title}: {level}")
         return "\n".join(criteria_list)
+
+
+if __name__ == "__main__":
+    from scrapper.factory import FactoryScrapper
+
+    url = ""
+
+    scrapper: LinkedinScrapper = FactoryScrapper.get_scrapper(url)
+    scrapper.extract()
+    print(scrapper.get_job_description())
+    print(scrapper.get_job_criteria())

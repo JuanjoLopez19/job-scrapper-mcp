@@ -48,3 +48,14 @@ class TecnoEmpleoScrapper(JobOfferExtractor):
         criteria_list.append(f"industry: {None}")
 
         return "\n".join(criteria_list)
+
+
+if __name__ == "__main__":
+    from scrapper.factory import FactoryScrapper
+
+    url = "https://www.tecnoempleo.com/empleo/tecnologia/analista-programador-java-teletrabajo/te-1c2a4d3f0b1e5d6"
+
+    scrapper: TecnoEmpleoScrapper = FactoryScrapper.get_scrapper(url)
+    scrapper.extract()
+    print(scrapper.get_job_description())
+    print(scrapper.get_job_criteria())
