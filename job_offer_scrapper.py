@@ -1,14 +1,15 @@
-from mcp.server.fastmcp import FastMCP
+from mcp.server import FastMCP as Server
 from pydantic_core import Url
 
 from shared.constants import ScrapperSelectionError
+from shared.utils import get_url_content
 
-mcp = FastMCP(
+app = Server(
     name="Job offer Scrapper",
 )
 
 
-@mcp.tool(name="Scrapper", description="Scrap the job offer from the given URL")
+@app.tool(name="Scrapper", description="Scrap the job offer from the given URL")
 def get_job_offer(url: str) -> dict:
     """
     Scraps the job offer from the given URL.
@@ -26,10 +27,16 @@ def get_job_offer(url: str) -> dict:
             "description": scrapper.get_job_description(),
             "criteria": scrapper.get_job_criteria(),
         }
-    except ScrapperSelectionError as e:
-        return {
-            "error": str(e),
-        }
+    except ScrapperSelectionError:
+        try:
+            content = get_url_content(url)
+            return {
+                "content": content,
+            }
+        except Exception as e:
+            return {
+                "error": str(e),
+            }
     except Exception as e:
         return {
             "error": f"An error occurred while scrapping the job offer: {str(e)}",
@@ -37,7 +44,7 @@ def get_job_offer(url: str) -> dict:
 
 
 def main():
-    mcp.run()
+    app.run()
 
 
 if __name__ == "__main__":

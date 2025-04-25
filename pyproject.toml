@@ -15,5 +15,11 @@ dependencies = [
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+    "uv>=0.6.16",
+]
+
 [project.scripts]
 work-parser = "job_offer_scrapper:main"

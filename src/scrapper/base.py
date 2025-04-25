@@ -17,6 +17,7 @@ class JobOfferExtractor(ABC):
         "Accept-Language": "en-US,en;q=0.9",
         "Connection": "keep-alive",
     }
+    html: bs | None = None
 
     def __extract_html(self):
         try:
@@ -28,11 +29,11 @@ class JobOfferExtractor(ABC):
             return None
 
     def extract(self):
-        html = self.__extract_html()
-        if html is None:
+        self.html = self.__extract_html()
+        if self.html is None:
             return None
 
-        job_offer_info = self.find_job_offer_info(html)
+        job_offer_info = self.find_job_offer_info(self.html)
         if job_offer_info is None:
             return None
         job_description = self.find_job_description(job_offer_info)
