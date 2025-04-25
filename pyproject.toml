@@ -9,8 +9,7 @@ dependencies = [
     "mcp[cli]>=1.6.0",
     "pydantic>=2.11.3",
     "requests>=2.32.3",
-    "selenium>=4.31.0",
-    "selenium-wire>=5.1.0",
+    "seleniumbase>=4.37.7",
 ]
 
 [build-system]
@@ -18,10 +17,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [dependency-groups]
-dev = [
-    "ipykernel>=6.29.5",
-    "uv>=0.6.16",
-]
+dev = ["ipykernel>=6.29.5", "uv>=0.6.16"]
 
 [project.scripts]
 work-parser = "job_offer_scrapper:main"

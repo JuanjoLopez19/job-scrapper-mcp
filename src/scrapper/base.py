@@ -28,9 +28,8 @@ class JobOfferExtractor(ABC):
         except exceptions.RequestException as e:
             print(f"Error fetching the URL: {e}")
 
-            print("Trying with selenium...")
-            self.__extract_html_selenium()
-            return None
+            html = self.__extract_html_selenium()
+            return html
 
     def extract(self):
         self.html = self.__extract_html()
@@ -40,6 +39,7 @@ class JobOfferExtractor(ABC):
         job_offer_info = self.find_job_offer_info(self.html)
         if job_offer_info is None:
             return None
+
         job_description = self.find_job_description(job_offer_info)
         self.description = job_description if job_description else None
 
@@ -47,19 +47,20 @@ class JobOfferExtractor(ABC):
         self.criteria = job_criteria if job_criteria else None
 
     def __extract_html_selenium(self):
-        from seleniumwire import webdriver
+        from seleniumbase import Driver
 
-        def interceptor(request):
-            request.headers["User-Agent"] = random.choice(USER_AGENTS)
-            request.headers["Accept-Language"] = "en-US,en;q=0.9"
-            request.headers["Connection"] = "keep-alive"
+        driver = Driver(uc=True, headless=True, disable_gpu=True)
+        try:
+            driver.get(str(self.url))
+            driver.sleep(5)
 
-        driver = webdriver.Chrome()
-        driver.request_interceptor = interceptor
+            html = bs(driver.page_source, "html.parser")
+            driver.quit()
 
-        driver.get(self.url.__str__())
-
-        # Wait for the page to load
+            return html
+        except Exception as e:
+            print(f"Error with selenium: {e}")
+            return None
 
     def get_job_description(self) -> str | None:
         return self.description

@@ -12,13 +12,27 @@ class IndeedScrapper(JobOfferExtractor):
     criteria: str | None = None
 
     def find_job_offer_info(self, html: bs):
-        return html
+        info = html.find("div", class_="jobsearch-JobComponent")
+
+        return info
 
     def find_job_description(self, job_offer: bs):
-        return ""
+        container = job_offer.find(
+            "div", {"class": "jobsearch-JobComponent-description"}
+        )
+        return container.find("div", {"id": "jobDescriptionText"}).text.strip()
 
-    def find_job_criteria(self, job_offer: bs):
-        return ""
+    def find_job_criteria(self, job_offer: bs, **kwargs):
+        header = job_offer.find(
+            "div",
+            {"class": "jobsearch-InfoHeaderContainer jobsearch-DesktopStickyContainer"},
+        )
+
+        header_container = header.find(
+            "div", {"data-testid": "jobsearch-CompanyInfoContainer"}
+        )
+
+        print(header_container.text.strip().split("\n"))
 
 
 if __name__ == "__main__":
