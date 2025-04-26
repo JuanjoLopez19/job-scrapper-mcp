@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup as bs
 from pydantic_core import Url
 from requests import Session, exceptions
 
-from shared.constants import USER_AGENTS
+from src.shared.constants import USER_AGENTS
 
 
 @dataclass(slots=True)

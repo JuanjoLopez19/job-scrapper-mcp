@@ -1,8 +1,8 @@
 from mcp.server import FastMCP as Server
 from pydantic_core import Url
 
-from shared.constants import ScrapperSelectionError
-from shared.utils import get_url_content
+from src.shared.constants import ScrapperSelectionError
+from src.shared.utils import get_url_content
 
 app = Server(
     name="Job offer Scrapper",
@@ -18,7 +18,7 @@ def get_job_offer(url: str) -> dict:
     Returns:
         dict: A dictionary containing the job offer information.
     """
-    from scrapper.factory import FactoryScrapper
+    from src.scrapper.factory import FactoryScrapper
 
     try:
         scrapper = FactoryScrapper.get_scrapper(Url(url))

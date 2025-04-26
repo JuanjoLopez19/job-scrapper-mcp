@@ -2,8 +2,8 @@ from dataclasses import dataclass
 
 from bs4 import BeautifulSoup as bs
 
-from scrapper.base import JobOfferExtractor
-from shared.constants import criteria_handler
+from src.scrapper.base import JobOfferExtractor
+from src.shared.constants import criteria_handler
 
 
 @dataclass(slots=True)

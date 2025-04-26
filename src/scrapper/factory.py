@@ -1,6 +1,6 @@
 from pydantic_core import Url
 
-from shared.constants import ScrapperSelectionError
+from src.shared.constants import ScrapperSelectionError
 
 
 class FactoryScrapper:
@@ -37,19 +37,19 @@ class FactoryScrapper:
             raise ValueError("Invalid URL: No domain found.")
 
         if "linkedin" in domain:
-            from scrapper.linkedin import LinkedinScrapper
+            from src.scrapper.linkedin import LinkedinScrapper
 
             return LinkedinScrapper(url)
         elif "infoempleo" in domain:
-            from scrapper.info_empleo import InfoEmpleoScrapper
+            from src.scrapper.info_empleo import InfoEmpleoScrapper
 
             return InfoEmpleoScrapper(url)
         elif "tecnoempleo" in domain:
-            from scrapper.tecnoempleo import TecnoEmpleoScrapper
+            from src.scrapper.tecnoempleo import TecnoEmpleoScrapper
 
             return TecnoEmpleoScrapper(url)
         elif "indeed" in domain:
-            from scrapper.indeed import IndeedScrapper
+            from src.scrapper.indeed import IndeedScrapper
 
             return IndeedScrapper(url)
         else:
