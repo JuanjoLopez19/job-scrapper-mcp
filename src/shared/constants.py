@@ -1,4 +1,7 @@
-from enum import Enum
+from typing import Optional
+
+from pydantic import BaseModel, Field
+from pydantic_core import Url
 
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.107 Safari/537.36",
@@ -30,11 +33,6 @@ criteria_handler = {
 }
 
 
-class LLMEngine(str, Enum):
-    OLLAMA = "ollama"
-    GPT = "gpt"
-
-
 class ScrapperSelectionError(Exception):
     """Exception raised when an invalid scrapper is selected."""
 
@@ -44,3 +42,38 @@ class ScrapperSelectionError(Exception):
 
     def __str__(self):
         return f"ScrapperSelectionError: {self.message}"
+
+
+class JobOfferCriteria(BaseModel):
+    profesional_level: Optional[str] = Field(
+        None, description="Role of the candidate in the job offer"
+    )
+    function: Optional[str] = Field(
+        None, description="Function of the candidate in the job offer"
+    )
+    worktime_type: Optional[str] = Field(
+        None, description="Worktime type of the job offer (e.g., full-time, part-time)"
+    )
+    site_type: Optional[str] = Field(
+        None, description="Site type of the job offer (e.g., remote, on-site)"
+    )
+    contract_type: Optional[str] = Field(
+        None, description="Contract type of the job offer (e.g., permanent, temporary)"
+    )
+    salary: Optional[str] = Field(
+        None, description="Salary offered for the job position"
+    )
+
+
+class CompanyInfo(BaseModel):
+    company_name: Optional[str] = Field(None, description="Name of the company")
+    company_location: Optional[str] = Field(None, description="Location of the company")
+    company_website: Optional[Url] = Field(None, description="Website of the company")
+
+
+class JobOffer(BaseModel):
+    title: str = Field(..., description="Title of the job offer")
+    criteria: JobOfferCriteria = Field(..., description="Criteria of the job offer")
+    company_info: CompanyInfo = Field(..., description="Information about the company")
+    url: Url = Field(..., description="URL of the job offer")
+    description: Optional[str] = Field(None, description="Description of the job offer")

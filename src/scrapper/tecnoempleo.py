@@ -2,6 +2,7 @@ import json
 from dataclasses import dataclass
 
 from bs4 import BeautifulSoup as bs
+from pydantic_core import Url
 
 from scrapper.base import JobOfferExtractor
 
@@ -25,7 +26,7 @@ class TecnoEmpleoScrapper(JobOfferExtractor):
             return None
         return data.get("description", "No description available")
 
-    def find_job_criteria(self, job_offer: bs):
+    def find_job_criteria(self, job_offer: bs, **kwargs: bs):
         criteria_list = []
         level = (
             job_offer.find("div", {"itemprop": "description"})
@@ -53,9 +54,9 @@ class TecnoEmpleoScrapper(JobOfferExtractor):
 if __name__ == "__main__":
     from scrapper.factory import FactoryScrapper
 
-    url = "https://www.tecnoempleo.com/empleo/tecnologia/analista-programador-java-teletrabajo/te-1c2a4d3f0b1e5d6"
+    url = "https://www.tecnoempleo.com/engineering-operations-technician-amazon-web-servi/aws/rf-0de4198da26b53cec144"
 
-    scrapper: TecnoEmpleoScrapper = FactoryScrapper.get_scrapper(url)
+    scrapper: TecnoEmpleoScrapper = FactoryScrapper.get_scrapper(Url(url))
     scrapper.extract()
     print(scrapper.get_job_description())
     print(scrapper.get_job_criteria())
