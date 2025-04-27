@@ -50,13 +50,35 @@ class TecnoEmpleoScrapper(JobOfferExtractor):
 
         return "\n".join(criteria_list)
 
+    def get_company_info(self, html):
+        self.offer_title = html.find("h1", {"itemprop": "title"}).text.strip()
+
+        script = html.find("script", type="application/ld+json")
+
+        if script is None:
+            return None
+
+        data = json.loads(script.string)
+
+        self.console.print(data)
+
+        # self.console.print(html.find("div", class_="container").find("a"))
+
+    def _parse_xml(self, html: str):
+        from lxml import etree
+
+        parser = etree.XMLParser(recover=True, encoding="utf-8")
+        tree = etree.fromstring(html, parser=parser)
+
+        return tree
+
 
 if __name__ == "__main__":
     from scrapper.factory import FactoryScrapper
 
-    url = "https://www.tecnoempleo.com/engineering-operations-technician-amazon-web-servi/aws/rf-0de4198da26b53cec144"
+    url = "https://www.tecnoempleo.com/senior-backend-java-developer-spain-based-cognizan/java-aws-sql/rf-423f13a1023d6344c644"
 
     scrapper: TecnoEmpleoScrapper = FactoryScrapper.get_scrapper(Url(url))
     scrapper.extract()
-    print(scrapper.get_job_description())
-    print(scrapper.get_job_criteria())
+
+    scrapper.console.print(scrapper.get_extraction_result())

@@ -108,6 +108,7 @@ def get_job_offer(url: str) -> Dict[str, Any]:
     except Exception as e:
         # General error
         logger.error(f"Error processing job offer: {e}", exc_info=True)
+
         response["error"] = f"An error occurred while scraping the job offer: {str(e)}"
 
     return response

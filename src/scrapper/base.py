@@ -4,13 +4,19 @@ import random
 import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import Any, ClassVar, Dict, Optional
+from typing import ClassVar, Dict, Optional
 
 from bs4 import BeautifulSoup as bs
 from pydantic_core import Url
 from requests import Session, exceptions
+from rich.console import Console
 
-from shared.constants import USER_AGENTS, JobOfferCriteria
+from shared.constants import (
+    USER_AGENTS,
+    CompanyInfo,
+    ExtractionResults,
+    JobOfferCriteria,
+)
 
 # Configurar logger
 logger = logging.getLogger(__name__)
@@ -35,11 +41,11 @@ class JobOfferExtractor(ABC):
 
     url: Url
 
+    console: Console = field(default_factory=lambda: Console(record=True))
     offer_description: Optional[str] = None
     offer_criteria: Optional[JobOfferCriteria] = field(default_factory=JobOfferCriteria)
-    company_name: Optional[str] = None
     offer_title: Optional[str] = None
-    company_url: Optional[Url] = None
+    company_info: Optional[CompanyInfo] = field(default_factory=CompanyInfo)
     html: Optional[bs] = None
 
     # Class variables
@@ -51,7 +57,7 @@ class JobOfferExtractor(ABC):
     headers: Dict[str, str] = field(
         default_factory=lambda: {
             "User-Agent": random.choice(USER_AGENTS),
-            "Accept-Language": "en-US,en;q=0.9",
+            "Accept-Language": "en,en-US;q=0.9,es-ES;q=0.8,es;q=0.7",
             "Connection": "keep-alive",
         }
     )
@@ -127,15 +133,14 @@ class JobOfferExtractor(ABC):
             logger.error("Failed to extract HTML content")
             return False
 
-        # self.company_info = self.get_company_info(self.html)
+        self.get_company_info(self.html)
 
         job_offer_info = self.find_job_offer_info(self.html)
         if job_offer_info is None:
             logger.error("Failed to find job offer information")
             return False
 
-        # job_description = self.find_job_description(job_offer_info)
-        # self.description = job_description if job_description else None
+        self.find_job_description(job_offer_info)
 
         self.find_job_criteria(job_offer_info, **{"source": self.html})
 
@@ -149,14 +154,22 @@ class JobOfferExtractor(ABC):
         """Returns the extracted job criteria if available."""
         return self.offer_criteria
 
-    def get_extraction_result(self) -> Dict[str, Any]:
+    def get_extraction_result(self) -> Dict[str, ExtractionResults]:
         """
         Returns a dictionary with all extracted information.
 
         Returns:
             Dict[str, Any]: Dictionary containing the extracted information.
         """
-        return {"description": self.offer_description, "criteria": self.offer_criteria}
+        return {
+            "data": ExtractionResults(
+                title=self.offer_title,
+                company_info=self.company_info,
+                url=self.url,
+                description=self.offer_description,
+                criteria=self.offer_criteria,
+            )
+        }
 
     @abstractmethod
     def find_job_offer_info(self, html: bs) -> Optional[bs]:
@@ -172,7 +185,7 @@ class JobOfferExtractor(ABC):
         pass
 
     @abstractmethod
-    def find_job_description(self, job_offer: bs) -> Optional[str]:
+    def find_job_description(self, job_offer: bs) -> bool:
         """
         Extracts the job description from the job offer information.
 
@@ -185,7 +198,7 @@ class JobOfferExtractor(ABC):
         pass
 
     @abstractmethod
-    def find_job_criteria(self, job_offer: bs, **kwargs: bs) -> Optional[str]:
+    def find_job_criteria(self, job_offer: bs, **kwargs: bs) -> bool:
         """
         Extracts the job criteria from the job offer information.
 
@@ -197,12 +210,12 @@ class JobOfferExtractor(ABC):
         """
         pass
 
-    # @abstractmethod
-    # def get_company_info(self, html: bs) -> Optional[CompanyInfo]:
-    #     """
-    #     Returns the company information if available.
+    @abstractmethod
+    def get_company_info(self, html: bs) -> bool:
+        """
+        Returns the company information if available.
 
-    #     Returns:
-    #         Optional[CompanyInfo]: The company information or None if not available.
-    #     """
-    #     pass
+        Returns:
+            Optional[CompanyInfo]: The company information or None if not available.
+        """
+        pass

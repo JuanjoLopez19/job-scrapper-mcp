@@ -17,22 +17,6 @@ USER_AGENTS = [
 ]
 
 
-criteria_handler = {
-    "linkedin": {
-        "Seniority level": "level",
-        "Employment type": "type",
-        "Job function": "function",
-        "Industries": "industry",
-    },
-    "info_empleo": {
-        "level": "level",
-        "type": "type",
-        "industry": "industry",
-        "function": "function",
-    },
-}
-
-
 class ScrapperSelectionError(Exception):
     """Exception raised when an invalid scrapper is selected."""
 
@@ -46,7 +30,7 @@ class ScrapperSelectionError(Exception):
 
 class JobOfferCriteria(BaseModel):
     profesional_level: Optional[str] = Field(
-        None, description="Role of the candidate in the job offer"
+        None, description="Seniority level of the candidate in the job offer"
     )
     function: Optional[str] = Field(
         None, description="Function of the candidate in the job offer"
@@ -71,7 +55,7 @@ class CompanyInfo(BaseModel):
     company_website: Optional[Url] = Field(None, description="Website of the company")
 
 
-class JobOffer(BaseModel):
+class ExtractionResults(BaseModel):
     title: str = Field(..., description="Title of the job offer")
     criteria: JobOfferCriteria = Field(..., description="Criteria of the job offer")
     company_info: CompanyInfo = Field(..., description="Information about the company")

@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from bs4 import BeautifulSoup as bs
+from pydantic_core import Url
 
 from scrapper.base import JobOfferExtractor
 
@@ -17,46 +18,78 @@ class InfoEmpleoScrapper(JobOfferExtractor):
     def find_job_description(self, job_offer: bs):
         description = job_offer.find("div", {"class": "offer"})
         if description is None:
-            return None
-        return description.text.strip()
+            return False
+        self.offer_description = description.text.strip()
+        return True
 
-    def find_job_criteria(self, job_offer: bs):
+    def find_job_criteria(self, job_offer: bs, **kwargs: bs):
         criteria = job_offer.find("div", {"class": "offer-excerpt"})
         if criteria is None:
-            return None
-        ul = criteria.find_all("ul", {"class": "inline"})
-        if not ul:
-            return None
-        criteria_list = []
-        row_1 = ul[1]
-        row_2 = ul[3]
+            return False
+        ul_items = criteria.find_all("ul", {"class": "inline"})
+        if not ul_items:
+            return False
 
-        type: str = row_2.find_all("li").pop().find("p").text.strip()
+        for ul in ul_items:
+            p_items = ul.find_all("p")
 
-        function: str = row_1.find("ul", {"class": "position-name"}).text.strip()
+            h3_items = ul.find_all("h3")
 
-        level: str = row_1.find_all("li").pop().find("p").text.strip()
-        industry: str = (
-            row_1.select("div[class='multipos-visible-content'] p:nth-child(1)")
-            .pop()
-            .find("strong")
-            .text.strip()
-        )
+            for h3, p in zip(h3_items, p_items):
+                title = h3.text.strip()
+                value = p.find(text=True).strip()
+                if title in ["Experiencia"]:
+                    self.offer_criteria.profesional_level = value
+                elif title in ["Salario"]:
+                    self.offer_criteria.salary = value
+                elif title in ["Área - Puesto"]:
+                    self.offer_criteria.function = value
+                elif title in ["Contrato"]:
+                    self.offer_criteria.contract_type = value
+                elif title in ["Jornada"]:
+                    self.offer_criteria.worktime_type = value
 
-        criteria_list.append(f"type: {type}")
-        criteria_list.append(f"function: {function}")
-        criteria_list.append(f"level: {level}")
-        criteria_list.append(f"industry: {industry}")
+        return True
 
-        return "\n".join(criteria_list)
+    def get_company_info(self, html):
+        header = html.find("div", class_="main-title")
+        if header is None:
+            return False
+
+        self.offer_title = header.find("h1", class_="h1").text.strip()
+        ul_company_item = header.find("ul", class_="details companyjobtype")
+        if ul_company_item is None:
+            return False
+
+        a_tag = ul_company_item.find("a")
+        if a_tag:
+            self.company_info.company_name = a_tag.text.strip()
+            url = (
+                a_tag["href"]
+                if "infoempleo" in a_tag["href"]
+                else f"https://{self.url.host}{a_tag['href']}"
+            )
+            self.company_info.company_website = Url(url)
+
+        ul_location = header.find("ul", class_="details inline pt20")
+
+        if ul_location is None:
+            return False
+        location_item = ul_location.find("li", class_="block")
+
+        if location_item:
+            self.company_info.company_location = location_item.text.strip().split(
+                "\xa0"
+            )[0]
+        return True
 
 
 if __name__ == "__main__":
     from scrapper.factory import FactoryScrapper
 
-    url = ""
+    url = "https://www.infoempleo.com/ofertasdetrabajo/programadora-backend/almeria/3097402/"
 
-    scrapper: InfoEmpleoScrapper = FactoryScrapper.get_scrapper(url)
+    scrapper: InfoEmpleoScrapper = FactoryScrapper.get_scrapper(Url(url))
     scrapper.extract()
-    print(scrapper.get_job_description())
-    print(scrapper.get_job_criteria())
+
+    scrapper.console.print(scrapper.get_extraction_result())
