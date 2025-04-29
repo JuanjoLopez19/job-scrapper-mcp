@@ -10,8 +10,6 @@ from scrapper.base import JobOfferExtractor
 @dataclass(slots=True)
 class TecnoEmpleoScrapper(JobOfferExtractor):
     type: str = "tecnoempleo"
-    description: str | None = None
-    criteria: str | None = None
 
     def find_job_offer_info(self, html: bs):
         return html
@@ -19,36 +17,41 @@ class TecnoEmpleoScrapper(JobOfferExtractor):
     def find_job_description(self, job_offer: bs):
         script = job_offer.find("script", type="application/ld+json")
         if script is None:
-            return None
+            return False
 
         data = json.loads(script.string)
         if data is None:
-            return None
-        return data.get("description", "No description available")
+            return False
+        self.offer_description = data.get("description", None)
+        return True
 
     def find_job_criteria(self, job_offer: bs, **kwargs: bs):
-        criteria_list = []
-        level = (
-            job_offer.find("div", {"itemprop": "description"})
-            .next_sibling.next_sibling.find("i", {"class": "fi fi-shield-ok"})
-            .parent.next_sibling.next_sibling.text.strip()
-            .replace("\t", "")
-            .split("\n")[1]
-        )
-
         list_items = (
             job_offer.select_one("div[class='mt-0']").find_next("ul").find_all("li")
         )
 
-        function = list_items[2].find_next("span").text.strip()
-        offer_type = list_items[3].find_next("span").text.strip()
+        items = list_items[: len(list_items) - 1]
 
-        criteria_list.append(f"type: {offer_type}")
-        criteria_list.append(f"function: {function}")
-        criteria_list.append(f"level: {level}")
-        criteria_list.append(f"industry: {None}")
+        for item in items:
+            if item.find("span") is not None:
+                span = item.find("span")
+                span_text = span.text.strip().replace("\t", "").replace("\n", "")
+                tag = span.next_sibling.next_sibling.next_sibling.next_sibling.text.strip()
+                self.console.print(f"Tag: {tag}, Span: {span_text}", style="bold green")
+                if tag == "Funciones":
+                    self.offer_criteria.function = span_text
+                elif tag == "Jornada":
+                    self.offer_criteria.worktime_type = span_text
+                elif tag == "Tipo contrato":
+                    self.offer_criteria.contract_type = span_text
+                elif tag == "Experiencia":
+                    self.offer_criteria.profesional_level = span_text
+                elif tag == "Salario":
+                    self.offer_criteria.salary = span_text.replace("\xa0", " ")
+                elif tag == "":
+                    self.offer_criteria.site_type = span_text
 
-        return "\n".join(criteria_list)
+        return True
 
     def get_company_info(self, html):
         self.offer_title = html.find("h1", {"itemprop": "title"}).text.strip()
@@ -60,23 +63,25 @@ class TecnoEmpleoScrapper(JobOfferExtractor):
 
         data = json.loads(script.string)
 
-        self.console.print(data)
+        self.company_info.company_name = data.get("hiringOrganization", {}).get(
+            "name", None
+        )
 
-        # self.console.print(html.find("div", class_="container").find("a"))
+        self.company_info.company_location = (
+            data.get("jobLocation", {}).get("address", {}).get("addressRegion", None)
+        )
 
-    def _parse_xml(self, html: str):
-        from lxml import etree
-
-        parser = etree.XMLParser(recover=True, encoding="utf-8")
-        tree = etree.fromstring(html, parser=parser)
-
-        return tree
+        self.company_info.company_website = Url(
+            html.find("h1", {"itemprop": "title"}).parent.next_sibling.next_sibling.get(
+                "href"
+            )
+        )
 
 
 if __name__ == "__main__":
     from scrapper.factory import FactoryScrapper
 
-    url = "https://www.tecnoempleo.com/senior-backend-java-developer-spain-based-cognizan/java-aws-sql/rf-423f13a1023d6344c644"
+    url = "https://www.tecnoempleo.com/programador-python-flask-django-pss/python-flask-fastapi-django-sql-nosql-/rf-0009129f72ee338a674b"
 
     scrapper: TecnoEmpleoScrapper = FactoryScrapper.get_scrapper(Url(url))
     scrapper.extract()
