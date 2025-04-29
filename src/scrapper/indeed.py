@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup as bs
 from pydantic_core import Url
 
 from scrapper.base import JobOfferExtractor
-from shared.constants import CompanyInfo
 
 
 @dataclass(slots=True)
@@ -84,11 +83,11 @@ class IndeedScrapper(JobOfferExtractor):
         header = html.find("div", {"data-testid": "simpler-simplified-header"})
 
         if header:
-            self.company_name = header.find(
+            self.company_info.company_name = header.find(
                 "span", {"class": "jobsearch-JobInfoHeader-companyNameSimple"}
             ).text.strip()
 
-            location = (
+            self.company_info.company_location = (
                 header.find(
                     "div", {"data-testid": "jobsearch-JobInfoHeader-companyLocation"}
                 )
@@ -96,33 +95,24 @@ class IndeedScrapper(JobOfferExtractor):
                 .strip()
             )
 
-            return CompanyInfo(
-                company_name=self.company_name,
-                company_location=location,
-                company_website=None,
-            )
+            return True
         else:
             header = html.find("div", {"data-testid": "jobsearch-CompanyInfoContainer"})
 
             if not header:
-                return None
+                return False
 
             a_tag = header.find("a")
 
-            if not a_tag:
-                self.company_name = None
-            else:
-                self.company_name = a_tag.text.strip()
-                self.company_url = Url(a_tag.get("href"))
+            if a_tag:
+                self.company_info.company_name = a_tag.text.strip()
+                self.company_info.company_url = Url(a_tag.get("href"))
 
-            location = header.find(
+            self.company_info.company_location = header.find(
                 "div", {"data-testid": "inlineHeader-companyLocation"}
             ).text.strip()
-            return CompanyInfo(
-                company_name=self.company_name,
-                company_location=location,
-                company_website=self.url,
-            )
+
+            return True
 
 
 if __name__ == "__main__":
@@ -136,5 +126,4 @@ if __name__ == "__main__":
 
     scrapper: IndeedScrapper = FactoryScrapper.get_scrapper(url)
     scrapper.extract()
-    print(scrapper.get_job_description())
-    print(scrapper.get_job_criteria())
+    scrapper.console.print(scrapper.get_extraction_result())
