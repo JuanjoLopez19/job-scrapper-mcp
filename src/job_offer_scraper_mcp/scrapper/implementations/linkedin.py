@@ -1,14 +1,17 @@
 from dataclasses import dataclass
+from sys import argv
 
 from bs4 import BeautifulSoup as bs
+from pydantic_core import Url
 
-from scrapper.base import JobOfferExtractor
-from shared.constants import criteria_handler
+from job_offer_scraper_mcp.scrapper.base import JobOfferExtractor
+from job_offer_scraper_mcp.scrapper.config import SupportedSites
+from job_offer_scraper_mcp.shared.constants import criteria_handler
 
 
 @dataclass(slots=True)
 class LinkedinScrapper(JobOfferExtractor):
-    type: str = "linkedin"
+    type: str = SupportedSites.LINKEDIN.value
     description: str | None = None
     criteria: str | None = None
 
@@ -39,9 +42,9 @@ class LinkedinScrapper(JobOfferExtractor):
 
 
 if __name__ == "__main__":
-    from scrapper.factory import FactoryScrapper
+    from job_offer_scraper_mcp.scrapper.factory import FactoryScrapper
 
-    url = ""
+    url = Url(argv[1])
 
     scrapper: LinkedinScrapper = FactoryScrapper.get_scrapper(url)
     scrapper.extract()

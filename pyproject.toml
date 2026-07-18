@@ -1,23 +1,76 @@
 [project]
-name = "mcp-python"
+name = "job-offer-scraper-mcp"
 version = "0.1.0"
-description = "Add your description here"
+authors = [{ name = "Juanjo López", email = "juanjo.lopez.gomez.19@gmail.com" }]
+description = "MCP server that extracts structured job offer data from popular job boards."
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["mcp", "model-context-protocol", "jobs", "scraping"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP",
+]
 dependencies = [
-    "bs4>=0.0.2",
-    "mcp[cli]>=1.6.0",
+    "beautifulsoup4>=4.13.0",
+    "mcp>=1.6.0",
     "pydantic>=2.11.3",
     "requests>=2.32.3",
     "seleniumbase>=4.37.7",
 ]
 
+[project.urls]
+Homepage = "https://github.com/JuanjoLopez19/job-scrapper-mcp"
+Repository = "https://github.com/JuanjoLopez19/job-scrapper-mcp"
+Issues = "https://github.com/JuanjoLopez19/job-scrapper-mcp/issues"
+
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77.0"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["job_offer_scraper_mcp*"]
+
 [dependency-groups]
-dev = ["ipykernel>=6.29.5", "uv>=0.6.16"]
+dev = [
+    "ipykernel>=6.29.5",
+    "uv>=0.6.16",
+    "pytest",
+    "ruff>=0.15.22",
+    "pyrefly>=1.1.1",
+    "pre-commit>=4.6.0",
+    "types-requests>=2.33.0.20260712",
+]
 
 [project.scripts]
-work-parser = "job_offer_scrapper:main"
+job-offer-scraper-mcp = "job_offer_scraper_mcp.server:main"
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers --strict-config"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pyrefly]
+project-includes = ["**/*.py*"]
+project-excludes = ["src/job_offer_scraper_mcp/scrapper/implementations/**"]
+search-path = ["src"]
