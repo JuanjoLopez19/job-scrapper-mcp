@@ -2,12 +2,13 @@ from dataclasses import dataclass
 
 from bs4 import BeautifulSoup as bs
 
-from scrapper.base import JobOfferExtractor
+from job_offer_scraper_mcp.scrapper.base import JobOfferExtractor
+from job_offer_scraper_mcp.scrapper.config import SupportedSites
 
 
 @dataclass(slots=True)
 class InfoEmpleoScrapper(JobOfferExtractor):
-    type: str = "info_empleo"
+    type: str = SupportedSites.INFO_EMPLEO.value
     description: str | None = None
     criteria: str | None = None
 
@@ -52,7 +53,7 @@ class InfoEmpleoScrapper(JobOfferExtractor):
 
 
 if __name__ == "__main__":
-    from scrapper.factory import FactoryScrapper
+    from job_offer_scraper_mcp.scrapper.factory import FactoryScrapper
 
     url = ""
 

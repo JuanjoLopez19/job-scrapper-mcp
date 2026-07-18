@@ -2,12 +2,13 @@ from dataclasses import dataclass
 
 from bs4 import BeautifulSoup as bs
 
-from scrapper.base import JobOfferExtractor
+from job_offer_scraper_mcp.scrapper.base import JobOfferExtractor
+from job_offer_scraper_mcp.scrapper.config import SupportedSites
 
 
 @dataclass(slots=True)
 class IndeedScrapper(JobOfferExtractor):
-    type: str = "indeed"
+    type: str = SupportedSites.INDEED.value
     description: str | None = None
     criteria: str | None = None
 
@@ -39,7 +40,7 @@ class IndeedScrapper(JobOfferExtractor):
 if __name__ == "__main__":
     from pydantic_core import Url
 
-    from scrapper.factory import FactoryScrapper
+    from job_offer_scraper_mcp.scrapper.factory import FactoryScrapper
 
     url = Url(
         "https://es.indeed.com/viewjob?jk=eb3fab2db3e35ef2&from=shareddesktop_copy"

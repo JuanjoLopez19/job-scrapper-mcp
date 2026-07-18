@@ -3,12 +3,13 @@ from dataclasses import dataclass
 
 from bs4 import BeautifulSoup as bs
 
-from scrapper.base import JobOfferExtractor
+from job_offer_scraper_mcp.scrapper.base import JobOfferExtractor
+from job_offer_scraper_mcp.scrapper.config import SupportedSites
 
 
 @dataclass(slots=True)
 class TecnoEmpleoScrapper(JobOfferExtractor):
-    type: str = "tecnoempleo"
+    type: str = SupportedSites.TECNO_EMPLEO.value
     description: str | None = None
     criteria: str | None = None
 
@@ -51,7 +52,7 @@ class TecnoEmpleoScrapper(JobOfferExtractor):
 
 
 if __name__ == "__main__":
-    from scrapper.factory import FactoryScrapper
+    from job_offer_scraper_mcp.scrapper.factory import FactoryScrapper
 
     url = "https://www.tecnoempleo.com/empleo/tecnologia/analista-programador-java-teletrabajo/te-1c2a4d3f0b1e5d6"
 

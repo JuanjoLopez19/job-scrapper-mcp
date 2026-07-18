@@ -1,0 +1,4 @@
+from job_offer_scraper_mcp.server import main
+
+if __name__ == "__main__":
+    main()

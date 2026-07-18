@@ -1,77 +1,95 @@
 # Job Offer Scraper MCP
 
-## Overview
+An MCP server that extracts job descriptions and criteria from job offer pages.
 
-This is an implementation of the Model Context Protocol (MCP) that allows VS Code users to search for job offers from popular job sites in Spain. The tool uses web scraping techniques to extract detailed information from job listings.
+## Supported sites
 
-## Supported Job Sites
+| Site | Status |
+| --- | --- |
+| LinkedIn | Implemented |
+| TecnoEmpleo | Implemented |
+| InfoEmpleo | Implemented |
+| Indeed | In progress |
 
-| Site        | Status         |
-| ----------- | -------------- |
-| LinkedIn    | ✅ Implemented |
-| TecnoEmpleo | ✅ Implemented |
-| InfoEmpleo  | ✅ Implemented |
-| Indeed      | 🔄 In Progress |
-| InfoJobs    | 📝 Planned     |
+## Run without cloning
 
-## Features
+Once the package is published on PyPI:
 
-- Extract job descriptions from supported job sites
-- Parse job criteria and requirements when available
-- Simple API for integrating with VS Code via MCP
-
-## Installation and Setup
-
-### Prerequisites
-
-- Python 3.13 or higher
-- VS Code with MCP support
-- `uv` package manager
-
-### VS Code Configuration
-
-Add the following to your VS Code settings:
-
-```json
-"mcp": {
-    "inputs": [],
-    "servers": {
-        "job-offer-scrapper": {
-            "command": "uv",
-            "args": [
-                "--directory",
-                "${env:USERPROFILE}/Documents/GitHub/mcp-python", // Configure this path to your local mcp-python repository
-                "run",
-                "python",
-                "-m",
-                "job_offer_scrapper"
-            ],
-        },
-        "filesystem": {
-            "command": "npx",
-            "args": [
-                "-y",
-                "@modelcontextprotocol/server-filesystem",
-                "${env:USERPROFILE}/Desktop", // Configure the paths you want to expose to the MCP server
-            ]
-        }
-    }
-},
+```bash
+uvx job-offer-scraper-mcp
 ```
 
-## Usage
+It can also be executed directly from GitHub without manually cloning the repository:
 
-After configuring the MCP server in VS Code, you can use it with compatible AI assistants to get information about job offers by providing URLs from supported job sites.
+```bash
+uvx --from git+https://github.com/JuanjoLopez19/job-scrapper-mcp.git job-offer-scraper-mcp
+```
 
-## Development
+`uvx` creates an isolated environment and caches the package and its dependencies.
 
-To contribute or extend this project:
+## MCP client configuration
 
-1. Clone the repository
-2. Install dependencies with `uv sync`
-3. Implement new scrapers in the `src/scrapper` directory
-4. Update the factory to support new job sites
+Example configuration for clients that accept a command and argument list:
+
+```json
+{
+  "servers": {
+    "job-offer-scraper": {
+      "command": "uvx",
+      "args": ["job-offer-scraper-mcp"]
+    }
+  }
+}
+```
+
+Before the first PyPI release, use the GitHub source explicitly:
+
+```json
+{
+  "servers": {
+    "job-offer-scraper": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/JuanjoLopez19/job-scrapper-mcp.git",
+        "job-offer-scraper-mcp"
+      ]
+    }
+  }
+}
+```
+
+## Local development
+
+Requirements:
+
+- Python 3.11 or newer
+- `uv`
+
+Install dependencies and run the quality suite:
+
+```bash
+uv sync
+uv run pre-commit run --all-files
+```
+
+Run the MCP server from the working tree:
+
+```bash
+uv run job-offer-scraper-mcp
+```
+
+Build and smoke-test the distribution:
+
+```bash
+uv build --no-sources
+uv run --isolated --no-project --with dist/*.whl tests/smoke_test.py
+```
+
+## Publishing
+
+Releases are published to PyPI by `.github/workflows/release.yml` when a tag beginning with `v` is pushed. The `pypi` GitHub environment and a matching PyPI Trusted Publisher must be configured before the first release.
 
 ## License
 
-[MIT License](LICENSE)
+[MIT](LICENSE)
