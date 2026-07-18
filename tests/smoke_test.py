@@ -11,7 +11,7 @@ def main() -> None:
         if entry_point.group == "console_scripts"
     }
 
-    assert app.name == "Job offer Scrapper"
+    assert app.name == "Job Offer Scraper"
     assert "job-offer-scraper-mcp" in commands
     assert package.read_text("METADATA") is not None
 
