@@ -1,6 +1,8 @@
 from dataclasses import dataclass
+from sys import argv
 
 from bs4 import BeautifulSoup as bs
+from pydantic_core import Url
 
 from job_offer_scraper_mcp.scrapper.base import JobOfferExtractor
 from job_offer_scraper_mcp.scrapper.config import SupportedSites
@@ -55,7 +57,7 @@ class InfoEmpleoScrapper(JobOfferExtractor):
 if __name__ == "__main__":
     from job_offer_scraper_mcp.scrapper.factory import FactoryScrapper
 
-    url = ""
+    url = Url(argv[1])
 
     scrapper: InfoEmpleoScrapper = FactoryScrapper.get_scrapper(url)
     scrapper.extract()

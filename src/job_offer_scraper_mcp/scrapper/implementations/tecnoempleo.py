@@ -52,9 +52,13 @@ class TecnoEmpleoScrapper(JobOfferExtractor):
 
 
 if __name__ == "__main__":
+    from sys import argv
+
+    from pydantic_core import Url
+
     from job_offer_scraper_mcp.scrapper.factory import FactoryScrapper
 
-    url = "https://www.tecnoempleo.com/empleo/tecnologia/analista-programador-java-teletrabajo/te-1c2a4d3f0b1e5d6"
+    url = Url(argv[1])
 
     scrapper: TecnoEmpleoScrapper = FactoryScrapper.get_scrapper(url)
     scrapper.extract()

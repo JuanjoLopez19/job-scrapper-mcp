@@ -49,6 +49,7 @@ dev = [
     "pyrefly>=1.1.1",
     "pre-commit>=4.6.0",
     "types-requests>=2.33.0.20260712",
+    "pypdf==6.14.2",
 ]
 
 [project.scripts]

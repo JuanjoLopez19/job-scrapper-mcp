@@ -1,5 +1,6 @@
 from pydantic_core import Url
 
+from job_offer_scraper_mcp.scrapper.base import JobOfferExtractor
 from job_offer_scraper_mcp.scrapper.config import SITE_DOMAINS, SupportedSites
 from job_offer_scraper_mcp.shared.constants import ScrapperSelectionError
 
@@ -31,7 +32,7 @@ class FactoryScrapper:
     """
 
     @staticmethod
-    def get_scrapper(url: Url):
+    def get_scrapper(url: Url) -> JobOfferExtractor:
         domain = url.host
 
         if not domain:

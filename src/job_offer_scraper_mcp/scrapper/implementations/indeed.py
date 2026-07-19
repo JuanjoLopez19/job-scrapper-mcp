@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from sys import argv
 
 from bs4 import BeautifulSoup as bs
 
@@ -42,9 +43,7 @@ if __name__ == "__main__":
 
     from job_offer_scraper_mcp.scrapper.factory import FactoryScrapper
 
-    url = Url(
-        "https://es.indeed.com/viewjob?jk=eb3fab2db3e35ef2&from=shareddesktop_copy"
-    )
+    url = Url(argv[1])
 
     scrapper: IndeedScrapper = FactoryScrapper.get_scrapper(url)
     scrapper.extract()
