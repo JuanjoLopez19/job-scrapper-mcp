@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tailor LaTeX CV"
+  short_description: "Adapta un CV LaTeX a una oferta real"
+  default_prompt: "Use $tailor-latex-cv to adapt my LaTeX CV truthfully to this job offer."
