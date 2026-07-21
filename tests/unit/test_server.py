@@ -1,8 +1,10 @@
 from unittest.mock import Mock
 
+from pydantic_core import Url
+
 from job_offer_scraper_mcp import server
 from job_offer_scraper_mcp.scrapper.factory import FactoryScrapper
-from job_offer_scraper_mcp.shared.constants import ScrapperSelectionError
+from job_offer_scraper_mcp.shared.constants import JobOfferInfo, ScrapperSelectionError
 from job_offer_scraper_mcp.shared.url_validation import UnsafeUrlError
 
 
@@ -10,17 +12,22 @@ def test_get_job_offer_for_supported_site_returns_extracted_fields(
     monkeypatch,
 ) -> None:
     scraper = Mock()
-    scraper.get_job_description.return_value = "Build reliable services"
-    scraper.get_job_criteria.return_value = "type: Full-time"
+    job_offer = JobOfferInfo(
+        url=Url("https://linkedin.com/jobs/view/1"),
+        title="Senior Backend Engineer",
+        company_name="Example Company",
+        location="Madrid",
+        description="Build reliable services",
+        criteria="type: Full-time",
+    )
+    scraper.get_job_offer_info.return_value = job_offer
     monkeypatch.setattr(FactoryScrapper, "get_scrapper", Mock(return_value=scraper))
 
     result = server.get_job_offer("https://linkedin.com/jobs/view/1")
 
     scraper.extract.assert_called_once_with()
-    assert result == {
-        "description": "Build reliable services",
-        "criteria": "type: Full-time",
-    }
+    scraper.get_job_offer_info.assert_called_once_with()
+    assert result == job_offer
 
 
 def test_get_job_offer_for_unsupported_site_returns_raw_content(monkeypatch) -> None:
