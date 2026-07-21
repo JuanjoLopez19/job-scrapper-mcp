@@ -1,6 +1,7 @@
 import re
 from dataclasses import dataclass
 from sys import argv
+from typing import cast
 
 from bs4 import BeautifulSoup as bs
 from bs4 import Tag
@@ -20,34 +21,46 @@ class InfoEmpleoScrapper(JobOfferExtractor):
     def find_job_offer_info(self, html: bs):
         return html
 
-    def find_job_description(self, job_offer: bs):
-        description = job_offer.find("div", {"class": "offer"})
+    def find_job_description(self, html: bs):
+        description = html.find("div", {"class": "offer"})
         if description is None:
             return None
         return description.text.strip()
 
-    def find_job_criteria(self, job_offer: bs):
-        criteria = job_offer.find("div", {"class": "offer-excerpt"})
+    def find_job_criteria(self, html: bs):
+        criteria = html.find("div", {"class": "offer-excerpt"})
         if criteria is None:
             return None
-        ul = criteria.find_all("ul", {"class": "inline"})
+        ul = cast(Tag, criteria).find_all("ul", {"class": "inline"})
         if not ul:
             return None
         criteria_list = []
-        row_1 = ul[1]
-        row_2 = ul[3]
+        row_1 = cast(Tag, ul[1])
+        row_2 = cast(Tag, ul[3])
 
-        type: str = row_2.find_all("li").pop().find("p").text.strip()
+        type = cast(Tag, row_2.find_all("li").pop()).find("p")
+        if type is None:
+            return None
+        type = type.text.strip()
 
-        function: str = row_1.find("ul", {"class": "position-name"}).text.strip()
+        function = row_1.find("ul", {"class": "position-name"})
+        if function is None:
+            return None
+        function = cast(Tag, function).text.strip()
 
-        level: str = row_1.find_all("li").pop().find("p").text.strip()
-        industry: str = (
+        level = cast(Tag, row_1.find_all("li").pop()).find("p")
+        if level is None:
+            return None
+        level = level.text.strip()
+
+        industry = (
             row_1.select("div[class='multipos-visible-content'] p:nth-child(1)")
             .pop()
             .find("strong")
-            .text.strip()
         )
+        if industry is None:
+            return None
+        industry = industry.text.strip()
 
         criteria_list.append(f"type: {type}")
         criteria_list.append(f"function: {function}")
@@ -71,10 +84,11 @@ class InfoEmpleoScrapper(JobOfferExtractor):
         company_info_ul = html.find("ul", {"class": "details companyjobtype"})
         if company_info_ul is None:
             return None
-        company_info_li: Tag | None = company_info_ul.select_one("li.companyname")
+
+        company_info_li = cast(Tag, company_info_ul).select_one("li.companyname")
         if company_info_li is None:
             return None
-        company_name = company_info_li.select_one("a")
+        company_name = cast(Tag, company_info_li.select_one("a"))
 
         if company_name is None:
             return None
@@ -97,7 +111,7 @@ if __name__ == "__main__":
 
     url = Url(argv[1])
 
-    scrapper: InfoEmpleoScrapper = FactoryScrapper.get_scrapper(url)
+    scrapper = FactoryScrapper.get_scrapper(url)
     scrapper.extract()
     print(scrapper.get_job_description())
     print(scrapper.get_job_criteria())
