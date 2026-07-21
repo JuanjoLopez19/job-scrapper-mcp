@@ -1,4 +1,5 @@
-from enum import StrEnum
+from pydantic import BaseModel
+from pydantic_core import Url
 
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.107 Safari/537.36",
@@ -30,11 +31,6 @@ criteria_handler = {
 }
 
 
-class LLMEngine(StrEnum):
-    OLLAMA = "ollama"
-    GPT = "gpt"
-
-
 class ScrapperSelectionError(Exception):
     """Exception raised when an invalid scrapper is selected."""
 
@@ -44,3 +40,12 @@ class ScrapperSelectionError(Exception):
 
     def __str__(self):
         return f"ScrapperSelectionError: {self.message}"
+
+
+class JobOfferInfo(BaseModel):
+    url: Url
+    title: str | None
+    company_name: str | None
+    location: str | None
+    description: str | None
+    criteria: str | None
