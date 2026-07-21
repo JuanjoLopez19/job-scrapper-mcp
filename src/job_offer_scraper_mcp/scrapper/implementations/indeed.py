@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 from sys import argv
+from typing import cast
 
 from bs4 import BeautifulSoup as bs
+from bs4 import Tag
 
 from job_offer_scraper_mcp.scrapper.base import JobOfferExtractor
 from job_offer_scraper_mcp.scrapper.config import SupportedSites
@@ -18,13 +20,19 @@ class IndeedScrapper(JobOfferExtractor):
 
         return info
 
-    def find_job_description(self, job_offer: bs):
-        container = job_offer.find(
-            "div", {"class": "jobsearch-JobComponent-description"}
-        )
-        return container.find("div", {"id": "jobDescriptionText"}).text.strip()
+    def find_job_description(self, html: bs):
+        container = html.find("div", {"class": "jobsearch-JobComponent-description"})
 
-    def find_job_criteria(self, job_offer: bs, **kwargs):
+        if container is None:
+            return None
+
+        container = cast(Tag, container)
+        description = container.find("div", {"id": "jobDescriptionText"})
+        if description is None:
+            return None
+        return description.text.strip()
+
+    def find_job_criteria(self, html: bs, **kwargs):
         return None
         # header = job_offer.find(
         #     "div",
@@ -45,7 +53,7 @@ if __name__ == "__main__":
 
     url = Url(argv[1])
 
-    scrapper: IndeedScrapper = FactoryScrapper.get_scrapper(url)
+    scrapper = FactoryScrapper.get_scrapper(url)
     scrapper.extract()
     print(scrapper.get_job_description())
     print(scrapper.get_job_criteria())

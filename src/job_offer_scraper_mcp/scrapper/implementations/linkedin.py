@@ -1,8 +1,10 @@
 import re
 from dataclasses import dataclass
 from sys import argv
+from typing import cast
 
 from bs4 import BeautifulSoup as bs
+from bs4 import Tag
 from pydantic_core import Url
 
 from job_offer_scraper_mcp.scrapper.base import JobOfferExtractor
@@ -24,22 +26,33 @@ class LinkedinScrapper(JobOfferExtractor):
             return None
         return job_offer
 
-    def find_job_description(self, job_offer: bs):
-        description = job_offer.find("div", class_="show-more-less-html__markup")
+    def find_job_description(self, html: bs):
+        description = html.find("div", class_="show-more-less-html__markup")
         if description is None:
             return None
 
         return description.text.strip()
 
-    def find_job_criteria(self, job_offer: bs):
-        criteria = job_offer.find("ul", class_="description__job-criteria-list")
+    def find_job_criteria(self, html: bs):
+        criteria = html.find("ul", class_="description__job-criteria-list")
         if criteria is None:
             return None
-        items = criteria.find_all("li")
+        items = cast(Tag, criteria).find_all("li")
         criteria_list = []
         for li in items:
-            title = criteria_handler.get(self.type)[li.find("h3").text.strip()]
-            level = li.find("span").text.strip()
+            if self.type not in criteria_handler:
+                return None
+            li = cast(Tag, li)
+            h3 = li.find("h3")
+            if h3 is None:
+                return None
+            title = criteria_handler[self.type][h3.text.strip()]
+            level = li.find("span")
+            if level is None:
+                return None
+            level = level.text.strip()
+            if level is None:
+                return None
             criteria_list.append(f"{title}: {level}")
         return "\n".join(criteria_list)
 
@@ -80,7 +93,7 @@ if __name__ == "__main__":
 
     url = Url(argv[1])
 
-    scrapper: LinkedinScrapper = FactoryScrapper.get_scrapper(url)
+    scrapper = FactoryScrapper.get_scrapper(url)
     scrapper.extract()
     print(scrapper.get_job_description())
     print(scrapper.get_job_criteria())
