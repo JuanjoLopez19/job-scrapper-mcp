@@ -22,14 +22,14 @@ remains machine-readable.
 
 ## ✨ Highlights
 
-| Capability | What it provides |
-| --- | --- |
-| 🔗 Job extraction | One MCP tool for LinkedIn, TecnoEmpleo, InfoEmpleo, and generic public pages |
-| 🧱 Structured output | Job description and employment criteria ready for agent workflows |
-| 🛡️ Safer fetching | Public-URL validation, read-only annotations, and explicit error responses |
-| 📝 CV tailoring | Evidence-based LaTeX rewriting without fabricated experience or hidden keywords |
-| ✅ PDF verification | Pinned Tectonic download, SHA-256 validation, compilation, and extractable-text checks |
-| 📦 Zero-clone usage | Run the MCP with `uvx` and install the skill directly from GitHub |
+| Capability           | What it provides                                                                       |
+| -------------------- | -------------------------------------------------------------------------------------- |
+| 🔗 Job extraction    | One MCP tool for LinkedIn, TecnoEmpleo, InfoEmpleo, and generic public pages           |
+| 🧱 Structured output | Job description and employment criteria ready for agent workflows                      |
+| 🛡️ Safer fetching    | Public-URL validation, read-only annotations, and explicit error responses             |
+| 📝 CV tailoring      | Evidence-based LaTeX rewriting without fabricated experience or hidden keywords        |
+| ✅ PDF verification  | Pinned Tectonic download, SHA-256 validation, compilation, and extractable-text checks |
+| 📦 Zero-clone usage  | Run the MCP with `uvx` and install the skill directly from GitHub                      |
 
 ## 🚀 Quick start
 
@@ -49,12 +49,12 @@ uvx --from git+https://github.com/JuanjoLopez19/job-scrapper-mcp.git job-offer-s
 
 ```json
 {
-  "servers": {
-    "job-offer-scraper": {
-      "command": "uvx",
-      "args": ["job-offer-scraper-mcp"]
-    }
-  }
+	"servers": {
+		"job-offer-scraper": {
+			"command": "uvx",
+			"args": ["job-offer-scraper-mcp"]
+		}
+	}
 }
 ```
 
@@ -62,28 +62,28 @@ To use the GitHub source before or instead of a PyPI release:
 
 ```json
 {
-  "servers": {
-    "job-offer-scraper": {
-      "command": "uvx",
-      "args": [
-        "--from",
-        "git+https://github.com/JuanjoLopez19/job-scrapper-mcp.git",
-        "job-offer-scraper-mcp"
-      ]
-    }
-  }
+	"servers": {
+		"job-offer-scraper": {
+			"command": "uvx",
+			"args": [
+				"--from",
+				"git+https://github.com/JuanjoLopez19/job-scrapper-mcp.git",
+				"job-offer-scraper-mcp"
+			]
+		}
+	}
 }
 ```
 
 ## 🌐 Supported job sites
 
-| Site | Status | Strategy |
-| --- | --- | --- |
-| LinkedIn | ✅ Implemented | Dedicated extractor |
-| TecnoEmpleo | ✅ Implemented | Dedicated extractor |
-| InfoEmpleo | ✅ Implemented | Dedicated extractor |
-| Indeed | 🚧 In progress | Dedicated extractor with ongoing improvements |
-| Other public sites | ✅ Fallback | Generic safe HTML retrieval |
+| Site               | Status         | Strategy                                      |
+| ------------------ | -------------- | --------------------------------------------- |
+| LinkedIn           | ✅ Implemented | Dedicated extractor                           |
+| TecnoEmpleo        | ✅ Implemented | Dedicated extractor                           |
+| InfoEmpleo         | ✅ Implemented | Dedicated extractor                           |
+| Indeed             | ✅ Implemented | Dedicated extractor with JSON data extraction |
+| Other public sites | ✅ Fallback    | Generic safe HTML retrieval                   |
 
 The MCP exposes:
 
