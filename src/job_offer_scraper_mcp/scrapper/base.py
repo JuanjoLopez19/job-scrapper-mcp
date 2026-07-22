@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup as bs
 from pydantic_core import Url
 from requests import Session, exceptions
 
-from job_offer_scraper_mcp.shared.constants import USER_AGENTS
+from job_offer_scraper_mcp.shared.constants import USER_AGENTS, JobOfferInfo
 from job_offer_scraper_mcp.shared.url_validation import validate_public_http_url
 from job_offer_scraper_mcp.shared.utils import fetch_url_response
 
@@ -41,6 +41,9 @@ class JobOfferExtractor(ABC):
     html: bs | None = field(default=None, init=False)
     description: str | None = field(default=None, init=False)
     criteria: str | None = field(default=None, init=False)
+    title: str | None = field(default=None, init=False)
+    company: str | None = field(default=None, init=False)
+    location: str | None = field(default=None, init=False)
 
     def __extract_html(self) -> bs | None:
         try:
@@ -58,6 +61,10 @@ class JobOfferExtractor(ABC):
         self.html = self.__extract_html()
         if self.html is None:
             return
+
+        self.title = self.find_job_title(self.html)
+        self.company = self.find_job_company(self.html)
+        self.location = self.find_job_location(self.html)
 
         job_offer_info = self.find_job_offer_info(self.html)
         if job_offer_info is None:
@@ -98,6 +105,25 @@ class JobOfferExtractor(ABC):
     def get_job_criteria(self) -> str | None:
         return self.criteria
 
+    def get_job_title(self) -> str | None:
+        return self.title
+
+    def get_job_company(self) -> str | None:
+        return self.company
+
+    def get_job_location(self) -> str | None:
+        return self.location
+
+    def get_job_offer_info(self) -> JobOfferInfo:
+        return JobOfferInfo(
+            url=self.url,
+            title=self.get_job_title(),
+            company_name=self.get_job_company(),
+            location=self.get_job_location(),
+            description=self.get_job_description(),
+            criteria=self.get_job_criteria(),
+        )
+
     @abstractmethod
     def find_job_offer_info(self, html: Any) -> Any | None:
         raise NotImplementedError
@@ -109,3 +135,12 @@ class JobOfferExtractor(ABC):
     @abstractmethod
     def find_job_criteria(self, html: Any) -> str | None:
         raise NotImplementedError
+
+    def find_job_title(self, html: Any) -> str | None:
+        return None
+
+    def find_job_company(self, html: Any) -> str | None:
+        return None
+
+    def find_job_location(self, html: Any) -> str | None:
+        return None

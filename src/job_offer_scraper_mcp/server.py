@@ -5,7 +5,7 @@ from mcp.types import ToolAnnotations
 from pydantic_core import Url
 from requests import RequestException
 
-from job_offer_scraper_mcp.shared.constants import ScrapperSelectionError
+from job_offer_scraper_mcp.shared.constants import JobOfferInfo, ScrapperSelectionError
 from job_offer_scraper_mcp.shared.url_validation import UnsafeUrlError
 from job_offer_scraper_mcp.shared.utils import get_url_content
 
@@ -38,7 +38,7 @@ app = FastMCP(
         openWorldHint=True,
     ),
 )
-def get_job_offer(url: str) -> dict[str, object]:
+def get_job_offer(url: str) -> JobOfferInfo | dict[str, object]:
     """
     Scraps the job offer from the given URL.
     Args:
@@ -51,10 +51,7 @@ def get_job_offer(url: str) -> dict[str, object]:
     try:
         scraper = FactoryScrapper.get_scrapper(Url(url))
         scraper.extract()
-        return {
-            "description": scraper.get_job_description(),
-            "criteria": scraper.get_job_criteria(),
-        }
+        return scraper.get_job_offer_info()
     except ScrapperSelectionError:
         try:
             content = get_url_content(url)
