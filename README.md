@@ -22,14 +22,14 @@ remains machine-readable.
 
 ## ✨ Highlights
 
-| Capability           | What it provides                                                                       |
-| -------------------- | -------------------------------------------------------------------------------------- |
+| Capability           | What it provides                                                                        |
+| -------------------- | --------------------------------------------------------------------------------------- |
 | 🔗 Job extraction    | One MCP tool for LinkedIn, TecnoEmpleo, InfoEmpleo, Indeed, InfoJobs, and generic pages |
-| 🧱 Structured output | Job description and employment criteria ready for agent workflows                      |
-| 🛡️ Safer fetching    | Public-URL validation, read-only annotations, and explicit error responses             |
-| 📝 CV tailoring      | Evidence-based LaTeX rewriting without fabricated experience or hidden keywords        |
-| ✅ PDF verification  | Pinned Tectonic download, SHA-256 validation, compilation, and extractable-text checks |
-| 📦 Zero-clone usage  | Run the MCP with `uvx` and install the skill directly from GitHub                      |
+| 🧱 Structured output | Job description and employment criteria ready for agent workflows                       |
+| 🛡️ Safer fetching    | Public-URL validation, read-only annotations, and explicit error responses              |
+| 📝 CV tailoring      | Evidence-based LaTeX rewriting without fabricated experience or hidden keywords         |
+| ✅ PDF verification  | Pinned Tectonic download, SHA-256 validation, compilation, and extractable-text checks  |
+| 📦 Zero-clone usage  | Run the MCP with `uvx` and install the skill directly from GitHub                       |
 
 ## 🚀 Quick start
 
