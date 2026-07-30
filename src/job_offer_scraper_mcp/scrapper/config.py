@@ -6,6 +6,7 @@ class SupportedSites(StrEnum):
     INFO_EMPLEO = "infoempleo"
     TECNO_EMPLEO = "tecnoempleo"
     INDEED = "indeed"
+    INFOJOBS = "infojobs"
 
 
 SITE_DOMAINS: dict[SupportedSites, tuple[str, ...]] = {
@@ -13,4 +14,5 @@ SITE_DOMAINS: dict[SupportedSites, tuple[str, ...]] = {
     SupportedSites.INFO_EMPLEO: ("infoempleo.com",),
     SupportedSites.TECNO_EMPLEO: ("tecnoempleo.com",),
     SupportedSites.INDEED: ("indeed.com",),
+    SupportedSites.INFOJOBS: ("infojobs.com", "infojobs.net"),
 }

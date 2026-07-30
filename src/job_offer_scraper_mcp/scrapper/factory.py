@@ -10,7 +10,7 @@ class FactoryScrapper:
     A factory class for creating web scrapper instances based on job website URLs.
     This class provides a factory method to instantiate the appropriate scrapper
     based on the domain of the provided URL. Currently supports LinkedIn, InfoEmpleo,
-    and TecnoEmpleo job websites.
+    TecnoEmpleo, Indeed, and InfoJobs job websites.
     Methods
     -------
     get_scrapper(url: str)
@@ -62,6 +62,12 @@ class FactoryScrapper:
             )
 
             return IndeedScrapper(url)
+        elif FactoryScrapper._matches_site(domain, SupportedSites.INFOJOBS):
+            from job_offer_scraper_mcp.scrapper.implementations.infojobs import (
+                InfoJobsScrapper,
+            )
+
+            return InfoJobsScrapper(url)
         else:
             raise ScrapperSelectionError(f"Unsupported domain: {domain}")
 

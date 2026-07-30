@@ -24,7 +24,7 @@ remains machine-readable.
 
 | Capability           | What it provides                                                                       |
 | -------------------- | -------------------------------------------------------------------------------------- |
-| 🔗 Job extraction    | One MCP tool for LinkedIn, TecnoEmpleo, InfoEmpleo, and generic public pages           |
+| 🔗 Job extraction    | One MCP tool for LinkedIn, TecnoEmpleo, InfoEmpleo, Indeed, InfoJobs, and generic pages |
 | 🧱 Structured output | Job description and employment criteria ready for agent workflows                      |
 | 🛡️ Safer fetching    | Public-URL validation, read-only annotations, and explicit error responses             |
 | 📝 CV tailoring      | Evidence-based LaTeX rewriting without fabricated experience or hidden keywords        |
@@ -83,6 +83,7 @@ To use the GitHub source before or instead of a PyPI release:
 | TecnoEmpleo        | ✅ Implemented | Dedicated extractor                           |
 | InfoEmpleo         | ✅ Implemented | Dedicated extractor                           |
 | Indeed             | ✅ Implemented | Dedicated extractor with JSON data extraction |
+| InfoJobs           | ✅ Implemented | Dedicated extractor                           |
 | Other public sites | ✅ Fallback    | Generic safe HTML retrieval                   |
 
 The MCP exposes:

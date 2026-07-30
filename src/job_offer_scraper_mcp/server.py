@@ -20,7 +20,7 @@ app = FastMCP(
     name="Job Offer Scraper",
     instructions=(
         "Extract structured descriptions and employment criteria from job-offer "
-        "URLs. Supports LinkedIn, InfoEmpleo, TecnoEmpleo and Indeed."
+        "URLs. Supports LinkedIn, InfoEmpleo, TecnoEmpleo, Indeed and InfoJobs."
     ),
     website_url="https://github.com/JuanjoLopez19/job-scrapper-mcp",
 )
