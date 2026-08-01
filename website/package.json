@@ -1,0 +1,17 @@
+{
+  "name": "job-offer-scraper-site",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --configLoader runner",
+    "build": "tsc --noEmit && vite build --configLoader runner",
+    "preview": "vite preview",
+    "check": "biome check . && tsc --noEmit"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.6",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.3"
+  }
+}

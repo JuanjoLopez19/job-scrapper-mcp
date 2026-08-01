@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f2efe6" />
+    <meta
+      name="description"
+      content="Open-source job offer extraction and truthful, verified LaTeX CV tailoring for AI agents."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Offer Ready — Job Offer Scraper MCP" />
+    <meta
+      property="og:description"
+      content="A job URL in. Structured evidence and a verified tailored CV out."
+    />
+    <meta property="og:image" content="./og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="./og.png" />
+    <title>Offer Ready — Job Offer Scraper MCP</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="app">
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="Offer Ready, home">
+          <span class="brand-mark" aria-hidden="true">//</span>
+          <span>offer ready</span>
+        </a>
+        <nav aria-label="Main navigation">
+          <a href="#components">Components</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#install">Install</a>
+        </nav>
+        <a
+          class="github-link"
+          href="https://github.com/JuanjoLopez19/job-scrapper-mcp"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub <span aria-hidden="true">↗</span>
+        </a>
+      </header>
+
+      <main id="main">
+        <section class="hero" id="top">
+          <div class="hero-copy">
+            <p class="eyebrow"><span>01</span> One pipeline · two open components</p>
+            <h1>Turn a job link into a CV worth sending.</h1>
+            <p class="hero-lede">
+              Extract the real requirements. Match only what your experience can prove.
+              Compile a tailored LaTeX CV—and verify the result before it leaves your machine.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#install">Start with one command</a>
+              <a
+                class="text-link"
+                href="https://github.com/JuanjoLopez19/job-scrapper-mcp"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Read the source <span aria-hidden="true">→</span>
+              </a>
+            </div>
+            <ul class="signal-list" aria-label="Project characteristics">
+              <li><span aria-hidden="true"></span> Read-only MCP</li>
+              <li><span aria-hidden="true"></span> No invented experience</li>
+              <li><span aria-hidden="true"></span> MIT licensed</li>
+            </ul>
+          </div>
+
+          <div
+            class="pipeline"
+            role="img"
+            aria-label="Example job offer processing pipeline"
+          >
+            <div class="pipeline-topbar">
+              <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+              <span>candidate_pipeline.log</span>
+              <span class="live"><i></i> LOCAL</span>
+            </div>
+            <div class="pipeline-body">
+              <div class="pipeline-row input-row">
+                <span class="line-no">01</span>
+                <span class="prompt">$</span>
+                <span>get_job_offer_details(</span><span class="code-string">job_url</span><span>)</span>
+              </div>
+              <div class="connector" aria-hidden="true"><span></span></div>
+              <div class="result-card">
+                <div class="result-heading">
+                  <span>STRUCTURED OFFER</span>
+                  <span class="status">200 OK</span>
+                </div>
+                <div class="json-line"><span>"role"</span>: "Senior Python Engineer",</div>
+                <div class="json-line"><span>"criteria"</span>: ["Python", "APIs", "AWS"],</div>
+                <div class="json-line"><span>"source"</span>: "linkedin.com/jobs/…"</div>
+              </div>
+              <div class="connector split" aria-hidden="true"><span></span></div>
+              <div class="artifact-row">
+                <div class="file-card">
+                  <span class="file-type">TEX</span>
+                  <div><strong>cv-acme-python.tex</strong><small>evidence-aligned</small></div>
+                </div>
+                <div class="file-card verified">
+                  <span class="file-type">PDF</span>
+                  <div><strong>cv-acme-python.pdf</strong><small>✓ text verified</small></div>
+                </div>
+              </div>
+            </div>
+            <div class="pipeline-footer">
+              <span>Nothing fabricated.</span>
+              <span>Nothing uploaded.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="job-board-strip" aria-label="Supported job boards">
+          <p>Understands job pages from</p>
+          <div>
+            <span>LinkedIn</span><i>+</i><span>InfoJobs</span><i>+</i><span>Indeed</span><i>+</i>
+            <span>TecnoEmpleo</span><i>+</i><span>InfoEmpleo</span><i>+</i><span>the open web</span>
+          </div>
+        </section>
+
+        <section class="components-section" id="components">
+          <div class="section-intro">
+            <p class="eyebrow"><span>02</span> Use either. Combine both.</p>
+            <h2>Two focused tools.<br />One honest application.</h2>
+            <p>
+              Each component solves one job well. Together, they close the gap between a job
+              board and a finished, machine-readable CV.
+            </p>
+          </div>
+
+          <article class="component component-mcp">
+            <div class="component-label"><span>01</span> MCP SERVER</div>
+            <div class="component-copy">
+              <p class="kicker">THE EXTRACTOR</p>
+              <h3>Give your agent the job offer—not the page clutter.</h3>
+              <p>
+                One read-only tool turns public URLs into consistent descriptions and criteria.
+                Dedicated extractors cover major job boards; safe generic retrieval handles the rest.
+              </p>
+              <ul class="check-list">
+                <li>Structured, predictable output</li>
+                <li>Public-URL validation</li>
+                <li>Stable, explicit error codes</li>
+              </ul>
+            </div>
+            <div class="component-code">
+              <div class="code-tab"><span>mcp.json</span><span>READY</span></div>
+              <pre><code>{
+  <span class="syntax-key">"command"</span>: <span class="syntax-value">"uvx"</span>,
+  <span class="syntax-key">"args"</span>: [
+    <span class="syntax-value">"job-offer-scraper-mcp"</span>
+  ]
+}</code></pre>
+            </div>
+          </article>
+
+          <article class="component component-skill">
+            <div class="component-label"><span>02</span> CODEX SKILL</div>
+            <div class="component-copy">
+              <p class="kicker">THE TAILOR</p>
+              <h3>Tailor the message. Keep every claim true.</h3>
+              <p>
+                The skill maps requirements to evidence already present in your LaTeX CV, rewrites
+                only what can be supported, then compiles and inspects the PDF locally.
+              </p>
+              <ul class="check-list">
+                <li>Evidence-based keyword matching</li>
+                <li>Pinned, hash-verified compiler</li>
+                <li>Extractable PDF text checks</li>
+              </ul>
+            </div>
+            <div class="evidence-panel">
+              <div class="evidence-header"><span>REQUIREMENT MATCH</span><span>3 / 4</span></div>
+              <div class="evidence-item"><span>Python</span><strong>DIRECT</strong></div>
+              <div class="evidence-item"><span>REST APIs</span><strong>DIRECT</strong></div>
+              <div class="evidence-item"><span>AWS</span><strong>EQUIVALENT</strong></div>
+              <div class="evidence-item unsupported"><span>Kubernetes</span><strong>OMITTED</strong></div>
+              <p>Unsupported requirements stay out of the CV.</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="workflow-section" id="workflow">
+          <div class="workflow-heading">
+            <p class="eyebrow"><span>03</span> From URL to verified PDF</p>
+            <h2>A pipeline you can inspect.</h2>
+          </div>
+          <ol class="workflow-list">
+            <li>
+              <span class="step-no">01</span>
+              <div><strong>Fetch</strong><p>The MCP validates and reads the public job URL.</p></div>
+              <span class="step-icon" aria-hidden="true">↗</span>
+            </li>
+            <li>
+              <span class="step-no">02</span>
+              <div><strong>Structure</strong><p>Role, responsibilities and criteria become agent-ready data.</p></div>
+              <span class="step-icon" aria-hidden="true">{ }</span>
+            </li>
+            <li>
+              <span class="step-no">03</span>
+              <div><strong>Match</strong><p>Every requirement is compared against evidence in your CV.</p></div>
+              <span class="step-icon" aria-hidden="true">≍</span>
+            </li>
+            <li>
+              <span class="step-no">04</span>
+              <div><strong>Tailor</strong><p>Relevant language moves forward. Unsupported claims do not.</p></div>
+              <span class="step-icon" aria-hidden="true">Aa</span>
+            </li>
+            <li>
+              <span class="step-no">05</span>
+              <div><strong>Verify</strong><p>LaTeX compiles locally; the final PDF is checked before publication.</p></div>
+              <span class="step-icon" aria-hidden="true">✓</span>
+            </li>
+          </ol>
+        </section>
+
+        <section class="principles">
+          <blockquote>
+            <span class="quote-mark" aria-hidden="true">“</span>
+            <p>Optimise the presentation.<br />Never manufacture the person.</p>
+          </blockquote>
+          <div class="principle-notes">
+            <p><span>LOCAL FIRST</span>Your CV stays on your machine throughout the workflow.</p>
+            <p><span>VISIBLE BY DESIGN</span>No hidden keywords, invisible text or ATS tricks.</p>
+            <p><span>FAILS EXPLICITLY</span>If an offer cannot be read or a PDF cannot be verified, you know.</p>
+          </div>
+        </section>
+
+        <section class="install-section" id="install">
+          <div class="install-copy">
+            <p class="eyebrow"><span>04</span> Open source · ready to run</p>
+            <h2>Start with the extractor.</h2>
+            <p>Python 3.11+. No clone required. Run the published package in an isolated UV environment.</p>
+          </div>
+          <div class="command-box">
+            <div class="command-meta"><span>TERMINAL</span><span>01 / 02</span></div>
+            <div class="command-line">
+              <code><span>$</span> uvx job-offer-scraper-mcp</code>
+              <button class="copy-button" data-copy="uvx job-offer-scraper-mcp" type="button">
+                <span>Copy</span>
+              </button>
+            </div>
+            <div class="command-meta second"><span>INSTALL THE SKILL FROM</span><span>02 / 02</span></div>
+            <div class="command-line skill-command">
+              <code>github.com/JuanjoLopez19/job-scrapper-mcp/tree/master/skills/tailor-latex-cv</code>
+              <button
+                class="copy-button"
+                data-copy="https://github.com/JuanjoLopez19/job-scrapper-mcp/tree/master/skills/tailor-latex-cv"
+                type="button"
+              >
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <a class="brand footer-brand" href="#top"><span class="brand-mark">//</span> offer ready</a>
+        <p>Built for candidates who want a better CV without a fictional one.</p>
+        <div class="footer-links">
+          <a href="https://pypi.org/project/job-offer-scraper-mcp/" target="_blank" rel="noreferrer">PyPI ↗</a>
+          <a href="https://github.com/JuanjoLopez19/job-scrapper-mcp" target="_blank" rel="noreferrer">GitHub ↗</a>
+          <span>MIT · 2026</span>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

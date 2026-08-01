@@ -1,0 +1,2 @@
+uv run pre-commit run --all-files
+pnpm --dir website check
