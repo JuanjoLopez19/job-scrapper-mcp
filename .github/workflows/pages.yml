@@ -2,7 +2,7 @@ name: Deploy landing to GitHub Pages
 
 on:
   push:
-    branches: [master, develop]
+    branches: [master]
     paths:
       - "website/**"
       - "package.json"
