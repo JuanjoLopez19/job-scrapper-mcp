@@ -1,0 +1,14 @@
+{
+  "name": "job-scrapper-mcp-workspace",
+  "private": true,
+  "packageManager": "pnpm@10.14.0",
+  "scripts": {
+    "prepare": "husky",
+    "web:dev": "pnpm --dir website dev",
+    "web:build": "pnpm --dir website build",
+    "web:check": "pnpm --dir website check"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}

@@ -5,6 +5,7 @@
 **Structured job-offer extraction for AI agents — plus truthful, verified LaTeX CV tailoring.**
 
 [![CI](https://github.com/JuanjoLopez19/job-scrapper-mcp/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/JuanjoLopez19/job-scrapper-mcp/actions/workflows/ci.yml)
+[![Website](https://img.shields.io/badge/explore-the_project-2949FF)](https://juanjolopez19.github.io/job-scrapper-mcp/)
 ![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
 ![MCP](https://img.shields.io/badge/Model_Context_Protocol-server-6F42C1)
 ![uv](https://img.shields.io/badge/managed_with-uv-DE5FE9)
