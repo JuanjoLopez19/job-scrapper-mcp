@@ -21,7 +21,7 @@ classifiers = [
 ]
 dependencies = [
     "beautifulsoup4>=4.13.0",
-    "mcp>=1.27,<2",
+    "mcp>=1.27,<3",
     "pydantic>=2.11.3",
     "requests>=2.32.3",
     "seleniumbase>=4.37.7",
