@@ -1,249 +1,203 @@
-<div align="center">
+# Job Offer Scraper MCP
 
-# 🔎 Job Offer Scraper MCP
+Read-only job-application tooling for AI agents.
 
-**Portable job-application tooling for AI agents: offer extraction, truthful CV tailoring, and evidence-based cover letters.**
+Give the MCP a public job-offer URL and it returns structured, agent-ready data. Add the bundled skills when you want a LaTeX CV or cover letter written from evidence you already have — never from invented experience.
 
-[![CI](https://github.com/JuanjoLopez19/job-scrapper-mcp/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/JuanjoLopez19/job-scrapper-mcp/actions/workflows/ci.yml)
-[![Website](https://img.shields.io/badge/explore-the_project-2949FF)](https://juanjolopez19.github.io/job-scrapper-mcp/)
-![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
-![MCP](https://img.shields.io/badge/Model_Context_Protocol-server-6F42C1)
-![uv](https://img.shields.io/badge/managed_with-uv-DE5FE9)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/job-offer-scraper-mcp?color=1a1917&label=PyPI)](https://pypi.org/project/job-offer-scraper-mcp/)
+[![Python](https://img.shields.io/badge/python-3.11%2B-b45c43)](https://www.python.org/)
+[![MCP](https://img.shields.io/badge/MCP-read--only-1a1917)](https://modelcontextprotocol.io/)
+[![License](https://img.shields.io/badge/license-MIT-b45c43)](LICENSE)
 
-</div>
-
----
-
-This repository is an [Agent Plugins 1.0.0](https://agent-plugins.org/)
-package. Compatible clients discover its read-only job-offer scraper from
-`mcp.json` and two independent skills from `skills/`: one adapts a LaTeX CV and
-the other writes a tailored cover letter without changing the CV.
-
-## ✨ Highlights
-
-| Capability           | What it provides                                                                        |
-| -------------------- | --------------------------------------------------------------------------------------- |
-| 🔗 Job extraction    | One MCP tool for LinkedIn, TecnoEmpleo, InfoEmpleo, Indeed, InfoJobs, and generic pages |
-| 🧱 Structured output | Job description and employment criteria ready for agent workflows                       |
-| 🛡️ Safer fetching    | Public-URL validation, read-only annotations, and explicit error responses              |
-| 📝 CV tailoring      | Evidence-based LaTeX rewriting without fabricated experience or hidden keywords         |
-| ✉️ Cover letters     | Job-specific motivation letters grounded only in candidate-provided facts                |
-| ✅ PDF verification  | Pinned Tectonic download, SHA-256 validation, compilation, and extractable-text checks  |
-| 📦 Portable plugin   | Agent Plugins 1.0 layout shared by ChatGPT, Codex, Cursor, Copilot, Kiro, and VS Code    |
-
-## 🚀 Install as an Agent Plugin
-
-Install this repository with the Agent Plugin flow supported by your client.
-The portable package root contains:
+## The small version
 
 ```text
-plugin.json
-skills/
-mcp.json
+public job URL
+      ↓
+get_job_offer_details
+      ↓
+description + employment criteria
+      ↓
+truthful CV tailoring or a separate cover letter
 ```
 
-The client can load either or both portable component types. No client-specific
-manifest is required.
+The scraper is one narrow tool. The two skills are independent, so you can install the whole workflow or only the piece you need.
 
-## 🚀 Run only the MCP server
+## What is included
 
-Run the published package in an isolated UV environment:
+| Piece | Responsibility | Location |
+| --- | --- | --- |
+| Job-offer scraper | Extract a description and employment criteria from a public URL. | MCP tool `get_job_offer_details` |
+| LaTeX CV tailoring | Match requirements to an existing `.tex` CV and write a verified tailored copy. | [`skills/tailor-latex-cv`](skills/tailor-latex-cv) |
+| Cover letter | Write a separate, job-specific letter from the offer and candidate evidence. | [`skills/write-cover-letter`](skills/write-cover-letter) |
+
+## Install
+
+### Published package
+
+Clients that support MCP server configuration can start the published package with `uvx`:
+
+```json
+{
+  "servers": {
+    "job-offer-scraper": {
+      "command": "uvx",
+      "args": ["job-offer-scraper-mcp"]
+    }
+  }
+}
+```
+
+The same command is the quickest local smoke test:
 
 ```bash
 uvx job-offer-scraper-mcp
 ```
 
-Or run directly from GitHub:
+This is a stdio server. Let the MCP client manage its process; do not start it as a background shell process and expect tools to appear automatically.
+
+### Agent Plugin
+
+The repository includes [`mcp.json`](mcp.json), which declares the server for compatible Agent Plugin clients. Install the repository as a plugin in your client and it can discover the MCP server and both skills together.
+
+### From this checkout
+
+This project uses [uv](https://docs.astral.sh/uv/) for Python dependencies:
 
 ```bash
-uvx --from git+https://github.com/JuanjoLopez19/job-scrapper-mcp.git job-offer-scraper-mcp
+uv sync --dev
+uv run job-offer-scraper-mcp
 ```
 
-### MCP client configuration
+## The MCP tool
 
-```json
-{
-	"servers": {
-		"job-offer-scraper": {
-			"command": "uvx",
-			"args": ["job-offer-scraper-mcp"]
-		}
-	}
-}
-```
-
-To use the GitHub source before or instead of a PyPI release:
-
-```json
-{
-	"servers": {
-		"job-offer-scraper": {
-			"command": "uvx",
-			"args": [
-				"--from",
-				"git+https://github.com/JuanjoLopez19/job-scrapper-mcp.git",
-				"job-offer-scraper-mcp"
-			]
-		}
-	}
-}
-```
-
-## 🌐 Supported job sites
-
-| Site               | Status         | Strategy                                      |
-| ------------------ | -------------- | --------------------------------------------- |
-| LinkedIn           | ✅ Implemented | Dedicated extractor                           |
-| TecnoEmpleo        | ✅ Implemented | Dedicated extractor                           |
-| InfoEmpleo         | ✅ Implemented | Dedicated extractor                           |
-| Indeed             | ✅ Implemented | Dedicated extractor with JSON data extraction |
-| InfoJobs           | ✅ Implemented | Dedicated extractor                           |
-| Other public sites | ✅ Fallback    | Generic safe HTML retrieval                   |
-
-The MCP exposes:
+The server exposes one tool:
 
 ```text
 get_job_offer_details(url: string)
 ```
 
-Successful responses contain `description` and `criteria`, or generic page
-`content`. Failures use a structured `error` object with a stable code.
+For a supported job board, the result contains these fields:
 
-## 🧩 Use a skill independently
+```json
+{
+  "url": "https://example.com/jobs/123",
+  "title": "Example role",
+  "company_name": "Example company",
+  "location": "Madrid",
+  "description": "The public job description...",
+  "criteria": "Full-time; Python; REST APIs"
+}
+```
 
-The CV skill can still be installed on its own from:
+For another public page, the server falls back to its fetched page content:
+
+```json
+{
+  "content": "The readable public page content..."
+}
+```
+
+Failures are explicit rather than silent. The server returns an error code such as `invalid_url`, `unsafe_url`, `fetch_failed`, or `extraction_failed` when it cannot complete the request.
+
+## Supported sources
+
+Dedicated extractors currently cover:
+
+- LinkedIn
+- InfoEmpleo
+- TecnoEmpleo
+- Indeed
+- InfoJobs
+
+Other public HTTP(S) pages use the generic content fallback when they can be fetched safely. Private network targets, local files, and other unsafe URL targets are rejected.
+
+## Skills
+
+### Tailor a LaTeX CV
+
+[`skills/tailor-latex-cv`](skills/tailor-latex-cv) takes:
+
+1. The path to an existing `.tex` CV.
+2. A public job-offer URL.
+
+It retrieves the offer through the MCP, builds a direct/equivalent/unsupported evidence match, writes a sibling tailored copy, and compiles it before publishing a PDF. The source CV is not overwritten by default.
+
+Unsupported requirements stay out of the document. Keywords are visible recruiter-readable text, never hidden ATS tricks.
+
+### Write a cover letter
+
+[`skills/write-cover-letter`](skills/write-cover-letter) takes:
+
+1. A public job-offer URL.
+2. A CV, profile, or concise list of candidate facts.
+
+It writes a separate 250–400 word letter by default. It does not edit the CV, invent motivation, or claim skills the supplied evidence cannot support.
+
+Both skills treat candidate files as sensitive local evidence and job-page content as untrusted input.
+
+## A truthful workflow
+
+1. **Fetch** — validate the public URL and read the page.
+2. **Structure** — turn role details and criteria into agent-ready fields.
+3. **Match** — compare every requirement with the local CV or profile.
+4. **Write** — create a tailored `.tex` copy or an independent letter.
+5. **Verify** — compile and inspect the CV PDF before treating it as done.
+
+## Design constraints
+
+This project deliberately does not:
+
+- invent roles, skills, metrics, or motivation;
+- add invisible keywords, white-on-white text, or metadata stuffing;
+- upload a CV to a third-party service;
+- access local files through the scraper;
+- hide extraction, fetching, or PDF-verification failures.
+
+The MCP tool is annotated as read-only, idempotent, and non-destructive. Public page content is treated as data, not as instructions for the agent.
+
+## Development
+
+Install the development environment:
+
+```bash
+uv sync --dev
+pre-commit install
+```
+
+Run the Python quality gates:
+
+```bash
+uv run pytest
+uv run ruff check .
+uv run ruff format --check .
+uv run pyrefly check
+pre-commit run --all-files
+```
+
+The optional landing site lives in [`website`](website) and uses pnpm, TypeScript, and Biome:
+
+```bash
+pnpm install
+pnpm --dir website check
+pnpm --dir website build
+```
+
+## Repository map
 
 ```text
-https://github.com/JuanjoLopez19/job-scrapper-mcp/tree/master/skills/tailor-latex-cv
+.
+├── mcp.json                         # Agent Plugin MCP declaration
+├── src/job_offer_scraper_mcp/       # MCP server and site extractors
+├── skills/tailor-latex-cv/           # Evidence-based LaTeX CV workflow
+├── skills/write-cover-letter/        # Evidence-based cover-letter workflow
+├── website/                          # Landing page
+├── tests/                            # Unit and smoke tests
+└── pyproject.toml                    # Package and tool configuration
 ```
 
-The cover-letter skill can be installed independently from:
+## License
 
-```text
-https://github.com/JuanjoLopez19/job-scrapper-mcp/tree/master/skills/write-cover-letter
-```
+MIT. See [`LICENSE`](LICENSE).
 
-For standalone installation, register the MCP server with `uvx` using the
-configuration above. Installing the complete Agent Plugin makes both skills and
-the MCP declaration discoverable from one package.
-
-### Workflow
-
-```mermaid
-flowchart LR
-    A[Job URL] --> B{Job Offer MCP}
-    B -->|Success| E[Evidence-based match]
-    B -->|Unavailable| C[Web fallback]
-    C -->|Unavailable| D[Ask user for offer text]
-    C --> E
-    D --> E
-    V[Candidate CV or profile] --> E
-    E --> F{Requested output}
-    F --> G[Truthful LaTeX CV tailoring]
-    G --> H[Tectonic + pypdf verification]
-    F --> I[Cover letter without CV changes]
-```
-
-The workflow preserves the original CV, integrates only supported keywords in
-visible recruiter-readable text, and reports material requirements that the CV
-does not substantiate.
-
-The cover-letter workflow reads a CV or a candidate-provided profile only as
-factual evidence. It creates a separate letter, defaults to the offer's
-language, and omits requirements the candidate has not substantiated.
-
-## 🧪 Compile and verify a tailored CV
-
-The skill includes a portable Python utility managed by UV:
-
-```bash
-uv run skills/tailor-latex-cv/scripts/compile_latex.py cv-tailored.tex \
-  --install-tectonic \
-  --expected-keyword Python \
-  --expected-keyword "REST APIs"
-```
-
-On first use, `--install-tectonic` downloads the pinned official Tectonic 0.16.9
-binary for the current platform and verifies its SHA-256 digest. Compilation
-runs in Tectonic's untrusted mode using a pinned direct official resource bundle
-URL. The generated PDF is then opened with `pypdf`, which verifies page count,
-extractable text, and requested keywords. Only after those checks pass, the
-utility atomically publishes the final PDF beside the tailored `.tex`.
-
-Omit `--install-tectonic` to prohibit compiler downloads. Use
-`--forbidden-keyword` to fail verification if an unsupported requirement appears
-in the generated PDF. Use `--final-pdf <path>` to select another deliverable
-location. Existing PDFs are preserved with a numbered suffix unless
-`--overwrite-final` is explicitly supplied.
-
-> [!NOTE]
-> On Windows, replace decorative `fontawesome5` icons with visible contact
-> labels in the tailored copy. The verifier detects this package before
-> compilation because the pinned Windows Tectonic build cannot load it reliably.
-
-## 🛡️ Integrity and security
-
-- The MCP accepts only public HTTP(S) targets and blocks unsafe local resources.
-- The MCP tool is annotated as read-only, idempotent, and non-destructive.
-- Job-page content is treated as untrusted input rather than agent instructions.
-- CV tailoring never invents experience or inserts invisible ATS keywords.
-- Tectonic release archives are pinned and hash-verified before execution.
-- LaTeX compilation uses `--untrusted` to disable known-insecure engine features.
-
-## 🛠️ Development
-
-Requirements:
-
-- Python 3.11 or newer
-- [UV](https://docs.astral.sh/uv/)
-
-Install dependencies and enable the quality hooks:
-
-```bash
-uv sync
-uv run pre-commit install
-```
-
-Run the complete quality suite:
-
-```bash
-uv run pre-commit run --all-files
-```
-
-Run the MCP from the working tree:
-
-```bash
-uv run job-offer-scraper-mcp
-```
-
-Build and smoke-test the distribution:
-
-```bash
-uv build --no-sources
-uv run --isolated --no-project --with dist/*.whl tests/smoke_test.py
-```
-
-## 📁 Project layout
-
-```text
-├── plugin.json                  # Agent Plugins 1.0 portable manifest
-├── mcp.json                     # Portable MCP server declaration
-├── skills/
-│   ├── tailor-latex-cv/         # Truthful LaTeX CV adaptation and verification
-│   └── write-cover-letter/      # Independent motivation-letter workflow
-├── src/job_offer_scraper_mcp/   # MCP server and scraper implementations
-├── tests/                       # Unit, integration, and smoke tests
-├── pyproject.toml               # UV, Ruff, Pyrefly, and pytest configuration
-├── .pre-commit-config.yaml      # Python quality hooks
-└── .husky/pre-commit            # Repository-wide pre-commit entry point
-```
-
-## 📦 Publishing
-
-Tags beginning with `v` trigger `.github/workflows/release.yml`, which builds,
-smoke-tests, and publishes the package to PyPI through Trusted Publishing.
-
-## 📄 License
-
-Distributed under the [MIT License](LICENSE).
+Maintained by [JuanjoLopez19](https://github.com/JuanjoLopez19).
