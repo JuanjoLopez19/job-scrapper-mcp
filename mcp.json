@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "job-offer-scraper": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["job-offer-scraper-mcp"]
+    }
+  }
+}

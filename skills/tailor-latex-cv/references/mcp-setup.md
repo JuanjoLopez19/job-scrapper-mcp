@@ -2,6 +2,11 @@
 
 The skill expects an MCP server exposing the read-only tool `get_job_offer_details`.
 
+When this skill is installed as part of the Agent Plugin, compatible clients
+discover that server from the root `mcp.json`. Use the manual configuration
+below only for a standalone skill installation or a client without Agent
+Plugins support.
+
 ## Published package
 
 Configure clients that accept a command and argument list with:

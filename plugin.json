@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "job-offer-application",
+  "version": "1.1.0",
+  "description": "Extract job offers and create truthful, tailored CVs and cover letters.",
+  "author": {
+    "name": "Juanjo López",
+    "email": "juanjo.lopez.gomez.19@gmail.com",
+    "url": "https://github.com/JuanjoLopez19"
+  },
+  "homepage": "https://juanjolopez19.github.io/job-scrapper-mcp/",
+  "repository": "https://github.com/JuanjoLopez19/job-scrapper-mcp",
+  "license": "MIT",
+  "keywords": ["jobs", "mcp", "cv", "cover-letter", "recruiting"]
+}

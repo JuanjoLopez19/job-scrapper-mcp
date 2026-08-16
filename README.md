@@ -2,7 +2,7 @@
 
 # 🔎 Job Offer Scraper MCP
 
-**Structured job-offer extraction for AI agents — plus truthful, verified LaTeX CV tailoring.**
+**Portable job-application tooling for AI agents: offer extraction, truthful CV tailoring, and evidence-based cover letters.**
 
 [![CI](https://github.com/JuanjoLopez19/job-scrapper-mcp/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/JuanjoLopez19/job-scrapper-mcp/actions/workflows/ci.yml)
 [![Website](https://img.shields.io/badge/explore-the_project-2949FF)](https://juanjolopez19.github.io/job-scrapper-mcp/)
@@ -15,11 +15,10 @@
 
 ---
 
-`job-offer-scraper-mcp` exposes a read-only MCP tool that turns public job URLs
-into structured descriptions and criteria. This repository also ships the
-remotely installable `tailor-latex-cv` Codex skill, which adapts a real LaTeX CV
-to an offer, compiles it with a verified Tectonic binary, and checks that the PDF
-remains machine-readable.
+This repository is an [Agent Plugins 1.0.0](https://agent-plugins.org/)
+package. Compatible clients discover its read-only job-offer scraper from
+`mcp.json` and two independent skills from `skills/`: one adapts a LaTeX CV and
+the other writes a tailored cover letter without changing the CV.
 
 ## ✨ Highlights
 
@@ -29,10 +28,25 @@ remains machine-readable.
 | 🧱 Structured output | Job description and employment criteria ready for agent workflows                       |
 | 🛡️ Safer fetching    | Public-URL validation, read-only annotations, and explicit error responses              |
 | 📝 CV tailoring      | Evidence-based LaTeX rewriting without fabricated experience or hidden keywords         |
+| ✉️ Cover letters     | Job-specific motivation letters grounded only in candidate-provided facts                |
 | ✅ PDF verification  | Pinned Tectonic download, SHA-256 validation, compilation, and extractable-text checks  |
-| 📦 Zero-clone usage  | Run the MCP with `uvx` and install the skill directly from GitHub                       |
+| 📦 Portable plugin   | Agent Plugins 1.0 layout shared by ChatGPT, Codex, Cursor, Copilot, Kiro, and VS Code    |
 
-## 🚀 Quick start
+## 🚀 Install as an Agent Plugin
+
+Install this repository with the Agent Plugin flow supported by your client.
+The portable package root contains:
+
+```text
+plugin.json
+skills/
+mcp.json
+```
+
+The client can load either or both portable component types. No client-specific
+manifest is required.
+
+## 🚀 Run only the MCP server
 
 Run the published package in an isolated UV environment:
 
@@ -96,37 +110,48 @@ get_job_offer_details(url: string)
 Successful responses contain `description` and `criteria`, or generic page
 `content`. Failures use a structured `error` object with a stable code.
 
-## 🧩 Install the LaTeX CV tailoring skill
+## 🧩 Use a skill independently
 
-Ask Codex to install the skill from this GitHub path:
+The CV skill can still be installed on its own from:
 
 ```text
 https://github.com/JuanjoLopez19/job-scrapper-mcp/tree/master/skills/tailor-latex-cv
 ```
 
-The skill and MCP server are separate components: install the skill from GitHub,
-then register the MCP server with `uvx` using the configuration above.
+The cover-letter skill can be installed independently from:
+
+```text
+https://github.com/JuanjoLopez19/job-scrapper-mcp/tree/master/skills/write-cover-letter
+```
+
+For standalone installation, register the MCP server with `uvx` using the
+configuration above. Installing the complete Agent Plugin makes both skills and
+the MCP declaration discoverable from one package.
 
 ### Workflow
 
 ```mermaid
 flowchart LR
-    A[LaTeX CV + job URL] --> B{Job Offer MCP}
+    A[Job URL] --> B{Job Offer MCP}
     B -->|Success| E[Evidence-based match]
     B -->|Unavailable| C[Web fallback]
     C -->|Unavailable| D[Ask user for offer text]
     C --> E
     D --> E
-    E --> F[Truthful visible tailoring]
-    F --> G[Tectonic compilation]
-    G --> H[pypdf text verification]
-    H --> I[Atomic PDF publication]
-    I --> J[Tailored .tex + verified PDF]
+    V[Candidate CV or profile] --> E
+    E --> F{Requested output}
+    F --> G[Truthful LaTeX CV tailoring]
+    G --> H[Tectonic + pypdf verification]
+    F --> I[Cover letter without CV changes]
 ```
 
 The workflow preserves the original CV, integrates only supported keywords in
 visible recruiter-readable text, and reports material requirements that the CV
 does not substantiate.
+
+The cover-letter workflow reads a CV or a candidate-provided profile only as
+factual evidence. It creates a separate letter, defaults to the offer's
+language, and omits requirements the candidate has not substantiated.
 
 ## 🧪 Compile and verify a tailored CV
 
@@ -202,15 +227,16 @@ uv run --isolated --no-project --with dist/*.whl tests/smoke_test.py
 ## 📁 Project layout
 
 ```text
+├── plugin.json                  # Agent Plugins 1.0 portable manifest
+├── mcp.json                     # Portable MCP server declaration
+├── skills/
+│   ├── tailor-latex-cv/         # Truthful LaTeX CV adaptation and verification
+│   └── write-cover-letter/      # Independent motivation-letter workflow
 ├── src/job_offer_scraper_mcp/   # MCP server and scraper implementations
-├── skills/tailor-latex-cv/      # Remotely installable Codex skill
-│   ├── agents/openai.yaml
-│   ├── references/
-│   ├── scripts/compile_latex.py
-│   └── SKILL.md
 ├── tests/                       # Unit, integration, and smoke tests
-├── pyproject.toml               # UV project and quality configuration
-└── .pre-commit-config.yaml      # Ruff, Pyrefly, and pytest hooks
+├── pyproject.toml               # UV, Ruff, Pyrefly, and pytest configuration
+├── .pre-commit-config.yaml      # Python quality hooks
+└── .husky/pre-commit            # Repository-wide pre-commit entry point
 ```
 
 ## 📦 Publishing
