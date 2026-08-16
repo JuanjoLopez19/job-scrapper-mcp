@@ -1,6 +1,20 @@
 import "./styles.css";
 
 const copyButtons = document.querySelectorAll<HTMLButtonElement>("[data-copy]");
+const menuButton = document.querySelector<HTMLButtonElement>(".menu-button");
+const mobileNav = document.querySelector<HTMLElement>("#mobile-nav");
+
+menuButton?.addEventListener("click", () => {
+  const isOpen = mobileNav?.classList.toggle("is-open") ?? false;
+  menuButton.setAttribute("aria-expanded", String(isOpen));
+});
+
+mobileNav?.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    mobileNav.classList.remove("is-open");
+    menuButton?.setAttribute("aria-expanded", "false");
+  });
+});
 
 for (const button of copyButtons) {
   button.addEventListener("click", async () => {
