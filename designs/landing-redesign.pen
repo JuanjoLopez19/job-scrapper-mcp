@@ -1,0 +1,1741 @@
+{
+  "version": "2.17",
+  "children": [
+    {
+      "type": "frame",
+      "id": "bkYZP",
+      "x": 0,
+      "y": 0,
+      "name": "component/Primary Action",
+      "reusable": true,
+      "fill": "$ink",
+      "stroke": "$ink",
+      "strokeWidth": 1,
+      "gap": 10,
+      "padding": [
+        11,
+        14
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "icon",
+          "id": "JQsxW",
+          "name": "Action Icon",
+          "width": 16,
+          "height": 16,
+          "icon": "copy",
+          "library": "lucide",
+          "fill": "$paper"
+        },
+        {
+          "type": "text",
+          "id": "K2ah1f",
+          "name": "Action Label",
+          "fill": "$paper",
+          "content": "Copy install",
+          "fontFamily": "$sans",
+          "fontSize": 13,
+          "fontWeight": "600"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "r6Wvn",
+      "x": 220,
+      "y": 0,
+      "name": "component/Mono Chip",
+      "reusable": true,
+      "fill": "$cream",
+      "stroke": "$ink",
+      "strokeWidth": 1,
+      "gap": 8,
+      "padding": [
+        7,
+        10
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "ellipse",
+          "id": "TU8In",
+          "name": "Status Dot",
+          "fill": "$accent",
+          "width": 7,
+          "height": 7
+        },
+        {
+          "type": "text",
+          "id": "ygCYf",
+          "name": "Chip Label",
+          "fill": "$ink",
+          "content": "Python 3.11+",
+          "fontFamily": "$mono",
+          "fontSize": 11,
+          "fontWeight": "500"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "CDfaI",
+      "x": 410,
+      "y": 0,
+      "name": "component/Evidence Row",
+      "reusable": true,
+      "width": 300,
+      "stroke": "#C5BEB6",
+      "strokeWidth": {
+        "top": 1
+      },
+      "gap": 10,
+      "padding": [
+        9,
+        0
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "JuJZB",
+          "name": "Requirement",
+          "fill": "$muted",
+          "content": "Python",
+          "fontFamily": "$sans",
+          "fontSize": 13,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "h6LOyf",
+          "name": "Evidence Badge",
+          "fill": "$panel",
+          "stroke": "$rule",
+          "strokeWidth": 1,
+          "padding": [
+            4,
+            6
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "xYuH5",
+              "name": "Evidence Label",
+              "fill": "$ink",
+              "content": "in CV",
+              "fontFamily": "$mono",
+              "fontSize": 10,
+              "fontWeight": "500"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "BKIbB",
+      "x": 0,
+      "y": 128,
+      "name": "Mobile Landing / Offer Ready",
+      "clip": true,
+      "width": 390,
+      "fill": "$paper",
+      "stroke": "$ink",
+      "strokeWidth": 1,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "nbw9s",
+          "name": "Mobile Nav",
+          "width": "fill_container",
+          "stroke": "#1A1A1A",
+          "strokeWidth": {
+            "bottom": 1
+          },
+          "padding": 18,
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "klABb",
+              "name": "Brand",
+              "fill": "$ink",
+              "content": "Offer Ready",
+              "fontFamily": "$serif",
+              "fontSize": 20,
+              "fontWeight": "600",
+              "fontStyle": "italic"
+            },
+            {
+              "type": "frame",
+              "id": "xyg1B",
+              "name": "Nav Actions",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "DqVbG",
+                  "name": "Repo Link",
+                  "fill": "$ink",
+                  "content": "GitHub",
+                  "fontFamily": "$mono",
+                  "fontSize": 11,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "icon",
+                  "id": "MHxYd",
+                  "name": "Menu Icon",
+                  "width": 20,
+                  "height": 20,
+                  "icon": "menu",
+                  "library": "lucide",
+                  "fill": "$ink"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "aDcGP",
+          "name": "Hero Section",
+          "width": "fill_container",
+          "fill": "$paper",
+          "layout": "vertical",
+          "gap": 18,
+          "padding": [
+            34,
+            18,
+            28,
+            18
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "a3fk6",
+              "name": "Hero Kicker",
+              "fill": "$muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "MCP server / agent skills / local verification",
+              "fontFamily": "$mono",
+              "fontSize": 11,
+              "fontWeight": "500"
+            },
+            {
+              "type": "frame",
+              "id": "A3uZ8q",
+              "name": "Headline Stack",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 4,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "TJdNo",
+                  "name": "Headline Line 1",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Fetch the job.",
+                  "lineHeight": 0.98,
+                  "fontFamily": "$serif",
+                  "fontSize": 44,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "WClEm",
+                  "name": "Headline Boxed Line",
+                  "width": "fill_container",
+                  "fill": "$ink",
+                  "layout": "vertical",
+                  "padding": [
+                    5,
+                    8
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "e34Im",
+                      "name": "Headline Boxed Text",
+                      "fill": "$paper",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Keep the candidate real.",
+                      "lineHeight": 1,
+                      "fontFamily": "$serif",
+                      "fontSize": 32,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "XIgTI",
+              "name": "Hero Copy",
+              "fill": "$ink",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "A read-only MCP turns public job URLs into structured requirements. The CV and cover-letter skills only write from evidence already present in your files.",
+              "lineHeight": 1.45,
+              "fontFamily": "$sans",
+              "fontSize": 16,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "o5qcjJ",
+              "name": "Install Command",
+              "width": "fill_container",
+              "fill": "$code",
+              "stroke": "$ink",
+              "strokeWidth": 1,
+              "gap": 10,
+              "padding": 12,
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "uNZHk",
+                  "name": "Install Text",
+                  "fill": "$paper",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "$ uvx job-offer-scraper-mcp",
+                  "fontFamily": "$mono",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "id": "RGbv6",
+                  "type": "ref",
+                  "ref": "bkYZP",
+                  "name": "Copy Command Button",
+                  "descendants": {
+                    "JQsxW": {
+                      "icon": "copy"
+                    },
+                    "K2ah1f": {
+                      "content": "Copy"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "SoyAh",
+              "name": "Hero Trust Chips",
+              "width": "fill_container",
+              "gap": 8,
+              "children": [
+                {
+                  "id": "C0g0y",
+                  "type": "ref",
+                  "ref": "r6Wvn",
+                  "name": "Trust Chip / Python 3.11+",
+                  "descendants": {
+                    "ygCYf": {
+                      "content": "Python 3.11+"
+                    }
+                  }
+                },
+                {
+                  "id": "VtL2q",
+                  "type": "ref",
+                  "ref": "r6Wvn",
+                  "name": "Trust Chip / MIT",
+                  "descendants": {
+                    "ygCYf": {
+                      "content": "MIT"
+                    }
+                  }
+                },
+                {
+                  "id": "RJL2l",
+                  "type": "ref",
+                  "ref": "r6Wvn",
+                  "name": "Trust Chip / runs locally",
+                  "descendants": {
+                    "ygCYf": {
+                      "content": "runs locally"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "D36dvY",
+              "name": "Evidence Diagram",
+              "width": "fill_container",
+              "fill": "$cream",
+              "stroke": "$ink",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 14,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "A0pD24",
+                  "name": "Diagram Caption",
+                  "fill": "$muted",
+                  "content": "agent-readable, recruiter-visible",
+                  "fontFamily": "$mono",
+                  "fontSize": 10,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "frame",
+                  "id": "bc4nF",
+                  "name": "Diagram Flow",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "kXVsX",
+                      "name": "Flow Box / URL",
+                      "width": "fill_container",
+                      "fill": "$paper",
+                      "stroke": "$rule",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "padding": [
+                        10,
+                        8
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "NrcI4",
+                          "name": "Flow Label / URL",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "URL",
+                          "fontFamily": "$mono",
+                          "fontSize": 10,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "YrwkQ",
+                      "name": "Flow Box / criteria",
+                      "width": "fill_container",
+                      "fill": "$paper",
+                      "stroke": "$rule",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "padding": [
+                        10,
+                        8
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "TgbE0",
+                          "name": "Flow Label / criteria",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "criteria",
+                          "fontFamily": "$mono",
+                          "fontSize": 10,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "N6yJCk",
+                      "name": "Flow Box / CV evidence",
+                      "width": "fill_container",
+                      "fill": "$paper",
+                      "stroke": "$rule",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "padding": [
+                        10,
+                        8
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "SBnFF",
+                          "name": "Flow Label / CV evidence",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "CV evidence",
+                          "fontFamily": "$mono",
+                          "fontSize": 10,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "n77jBl",
+                  "name": "Evidence Matches",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "id": "v57tg",
+                      "type": "ref",
+                      "ref": "CDfaI",
+                      "name": "Evidence / Python",
+                      "width": "fill_container",
+                      "descendants": {
+                        "JuJZB": {
+                          "content": "Python",
+                          "fill": "$muted"
+                        },
+                        "xYuH5": {
+                          "content": "in CV",
+                          "fill": "$ink"
+                        }
+                      }
+                    },
+                    {
+                      "id": "o6zdS",
+                      "type": "ref",
+                      "ref": "CDfaI",
+                      "name": "Evidence / REST APIs",
+                      "width": "fill_container",
+                      "descendants": {
+                        "JuJZB": {
+                          "content": "REST APIs",
+                          "fill": "$muted"
+                        },
+                        "xYuH5": {
+                          "content": "in CV",
+                          "fill": "$ink"
+                        }
+                      }
+                    },
+                    {
+                      "id": "Tu37a",
+                      "type": "ref",
+                      "ref": "CDfaI",
+                      "name": "Evidence / AWS",
+                      "width": "fill_container",
+                      "descendants": {
+                        "JuJZB": {
+                          "content": "AWS",
+                          "fill": "$muted"
+                        },
+                        "xYuH5": {
+                          "content": "equiv",
+                          "fill": "$ink"
+                        }
+                      }
+                    },
+                    {
+                      "id": "W0gLp",
+                      "type": "ref",
+                      "ref": "CDfaI",
+                      "name": "Evidence / Kubernetes",
+                      "width": "fill_container",
+                      "descendants": {
+                        "JuJZB": {
+                          "content": "Kubernetes",
+                          "fill": "$danger"
+                        },
+                        "xYuH5": {
+                          "content": "omitted",
+                          "fill": "$danger"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "p9Gie",
+          "name": "Pieces Section",
+          "width": "fill_container",
+          "fill": "$paper",
+          "stroke": "#1A1A1A",
+          "strokeWidth": {
+            "top": 1
+          },
+          "layout": "vertical",
+          "gap": 20,
+          "padding": [
+            30,
+            18
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "iv02C",
+              "name": "Pieces Eyebrow",
+              "fill": "$muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "portable package",
+              "fontFamily": "$mono",
+              "fontSize": 11,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "MjhFC",
+              "name": "Pieces Heading",
+              "fill": "$ink",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Three parts, each with a narrow job.",
+              "lineHeight": 1.05,
+              "fontFamily": "$serif",
+              "fontSize": 34,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "epDqx",
+              "name": "Pieces Intro",
+              "fill": "$muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Install the Agent Plugin for the whole flow, or pick the MCP and skills independently. The boundaries stay visible.",
+              "lineHeight": 1.45,
+              "fontFamily": "$sans",
+              "fontSize": 15,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "lYPLC",
+              "name": "Pieces List",
+              "width": "fill_container",
+              "layout": "vertical",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "W0Rfg",
+                  "name": "Piece Row / Job-offer scraper",
+                  "width": "fill_container",
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "gap": 14,
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "JfnBI",
+                      "name": "Piece Number / 01",
+                      "fill": "$accent",
+                      "content": "01",
+                      "fontFamily": "$mono",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "hrUpV",
+                      "name": "Piece Body / Job-offer scraper",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Q9cfHb",
+                          "name": "Piece Path / mcp.json",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "mcp.json",
+                          "fontFamily": "$mono",
+                          "fontSize": 10,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "twTPQ",
+                          "name": "Piece Title / Job-offer scraper",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Job-offer scraper",
+                          "fontFamily": "$serif",
+                          "fontSize": 23,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "uPWQr",
+                          "name": "Piece Copy / Job-offer scraper",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Reads public HTTP(S) job URLs and returns structured description, criteria, or safe fallback content.",
+                          "lineHeight": 1.42,
+                          "fontFamily": "$sans",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "wgOsn",
+                  "name": "Piece Row / LaTeX CV tailoring",
+                  "width": "fill_container",
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "gap": 14,
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "N9O61",
+                      "name": "Piece Number / 02",
+                      "fill": "$accent",
+                      "content": "02",
+                      "fontFamily": "$mono",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "CAaLe",
+                      "name": "Piece Body / LaTeX CV tailoring",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ghRfB",
+                          "name": "Piece Path / skills/tailor-latex-cv",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "skills/tailor-latex-cv",
+                          "fontFamily": "$mono",
+                          "fontSize": 10,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "iouTZ",
+                          "name": "Piece Title / LaTeX CV tailoring",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "LaTeX CV tailoring",
+                          "fontFamily": "$serif",
+                          "fontSize": 23,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Ej2Nk",
+                          "name": "Piece Copy / LaTeX CV tailoring",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Matches requirements to evidence in the .tex file, rewrites only supported claims, then compiles and verifies the PDF.",
+                          "lineHeight": 1.42,
+                          "fontFamily": "$sans",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "DxCVN",
+                  "name": "Piece Row / Cover letter",
+                  "width": "fill_container",
+                  "stroke": "#C5BEB6",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "gap": 14,
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "DMIta",
+                      "name": "Piece Number / 03",
+                      "fill": "$accent",
+                      "content": "03",
+                      "fontFamily": "$mono",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "H1LJu",
+                      "name": "Piece Body / Cover letter",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "mwNQI",
+                          "name": "Piece Path / skills/write-cover-letter",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "skills/write-cover-letter",
+                          "fontFamily": "$mono",
+                          "fontSize": 10,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "CuKkJ",
+                          "name": "Piece Title / Cover letter",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Cover letter",
+                          "fontFamily": "$serif",
+                          "fontSize": 23,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "hy3lL",
+                          "name": "Piece Copy / Cover letter",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Creates a separate motivation letter from the offer and provided profile facts without editing the CV.",
+                          "lineHeight": 1.42,
+                          "fontFamily": "$sans",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "DLM5D",
+          "name": "Workflow Section",
+          "width": "fill_container",
+          "fill": "$ink",
+          "layout": "vertical",
+          "gap": 22,
+          "padding": [
+            34,
+            18
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "J58WR",
+              "name": "Workflow Eyebrow",
+              "fill": "#D4916E",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "from URL to deliverable",
+              "fontFamily": "$mono",
+              "fontSize": 11,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "OLODN",
+              "name": "Workflow Heading",
+              "fill": "$paper",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "The agent gets structure before it gets permission to write.",
+              "lineHeight": 1.06,
+              "fontFamily": "$serif",
+              "fontSize": 32,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "P5dFZ7",
+              "name": "Workflow Rail",
+              "width": "fill_container",
+              "stroke": "$paper",
+              "strokeWidth": {
+                "left": 1
+              },
+              "layout": "vertical",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "sh8Ds",
+                  "name": "Workflow Step / Fetch",
+                  "width": "fill_container",
+                  "stroke": "#4E463D",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 12,
+                  "padding": [
+                    13,
+                    0,
+                    13,
+                    14
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "gWWGT",
+                      "name": "Workflow Number / Fetch",
+                      "fill": "#D4916E",
+                      "content": "01",
+                      "fontFamily": "$mono",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "C7urg",
+                      "name": "Workflow Text / Fetch",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "fOTqN",
+                          "name": "Workflow Title / Fetch",
+                          "fill": "$paper",
+                          "content": "Fetch",
+                          "fontFamily": "$serif",
+                          "fontSize": 22,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "jSIGW",
+                          "name": "Workflow Copy / Fetch",
+                          "fill": "#D8CFC2",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Validate the public job URL and read the page.",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$sans",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "G4zRu",
+                  "name": "Workflow Step / Structure",
+                  "width": "fill_container",
+                  "stroke": "#4E463D",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 12,
+                  "padding": [
+                    13,
+                    0,
+                    13,
+                    14
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "nUrGV",
+                      "name": "Workflow Number / Structure",
+                      "fill": "#D4916E",
+                      "content": "02",
+                      "fontFamily": "$mono",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "OcjJO",
+                      "name": "Workflow Text / Structure",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "YuiUD",
+                          "name": "Workflow Title / Structure",
+                          "fill": "$paper",
+                          "content": "Structure",
+                          "fontFamily": "$serif",
+                          "fontSize": 22,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "BsBtx",
+                          "name": "Workflow Copy / Structure",
+                          "fill": "#D8CFC2",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Extract role, responsibilities, and criteria for the agent.",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$sans",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "F3eUkn",
+                  "name": "Workflow Step / Match",
+                  "width": "fill_container",
+                  "stroke": "#4E463D",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 12,
+                  "padding": [
+                    13,
+                    0,
+                    13,
+                    14
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "YbecO",
+                      "name": "Workflow Number / Match",
+                      "fill": "#D4916E",
+                      "content": "03",
+                      "fontFamily": "$mono",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "NjIaa",
+                      "name": "Workflow Text / Match",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "VT0ZR",
+                          "name": "Workflow Title / Match",
+                          "fill": "$paper",
+                          "content": "Match",
+                          "fontFamily": "$serif",
+                          "fontSize": 22,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Icyvb",
+                          "name": "Workflow Copy / Match",
+                          "fill": "#D8CFC2",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Check every requirement against the local CV or profile.",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$sans",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ihJnD",
+                  "name": "Workflow Step / Write",
+                  "width": "fill_container",
+                  "stroke": "#4E463D",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 12,
+                  "padding": [
+                    13,
+                    0,
+                    13,
+                    14
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "W3rFva",
+                      "name": "Workflow Number / Write",
+                      "fill": "#D4916E",
+                      "content": "04",
+                      "fontFamily": "$mono",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "InDUt",
+                      "name": "Workflow Text / Write",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "kejgL",
+                          "name": "Workflow Title / Write",
+                          "fill": "$paper",
+                          "content": "Write",
+                          "fontFamily": "$serif",
+                          "fontSize": 22,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "paT1a",
+                          "name": "Workflow Copy / Write",
+                          "fill": "#D8CFC2",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Produce a tailored .tex file or independent cover letter.",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$sans",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ZxOFC",
+                  "name": "Workflow Step / Verify",
+                  "width": "fill_container",
+                  "stroke": "#4E463D",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "gap": 12,
+                  "padding": [
+                    13,
+                    0,
+                    13,
+                    14
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Y2Qqdc",
+                      "name": "Workflow Number / Verify",
+                      "fill": "#D4916E",
+                      "content": "05",
+                      "fontFamily": "$mono",
+                      "fontSize": 11,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "quucR",
+                      "name": "Workflow Text / Verify",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "bxYg0",
+                          "name": "Workflow Title / Verify",
+                          "fill": "$paper",
+                          "content": "Verify",
+                          "fontFamily": "$serif",
+                          "fontSize": 22,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "iciyv",
+                          "name": "Workflow Copy / Verify",
+                          "fill": "#D8CFC2",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Compile and inspect PDF text before calling the CV done.",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$sans",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "q1BKoW",
+          "name": "Guardrails Section",
+          "width": "fill_container",
+          "fill": "$panel",
+          "stroke": "#1A1A1A",
+          "strokeWidth": {
+            "top": 1
+          },
+          "layout": "vertical",
+          "gap": 18,
+          "padding": [
+            32,
+            18
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "fOjxl",
+              "name": "Guardrails Eyebrow",
+              "fill": "$danger",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "what stays out",
+              "fontFamily": "$mono",
+              "fontSize": 11,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "xJb0K",
+              "name": "Guardrails Heading",
+              "fill": "$ink",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Unsupported requirements do not get dressed up as experience.",
+              "lineHeight": 1.07,
+              "fontFamily": "$serif",
+              "fontSize": 31,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "JtDVa",
+              "name": "Guardrail List",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 10,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "zlYVO",
+                  "name": "Guardrail / No invented roles, skill",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "d6vt3",
+                      "name": "Guardrail Icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "ban",
+                      "library": "lucide",
+                      "fill": "$danger"
+                    },
+                    {
+                      "type": "text",
+                      "id": "FHeH1",
+                      "name": "Guardrail Text",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "No invented roles, skills, metrics, or motivation.",
+                      "lineHeight": 1.42,
+                      "fontFamily": "$sans",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "g1CgR",
+                  "name": "Guardrail / No hidden ATS keywords o",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "g8c774",
+                      "name": "Guardrail Icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "ban",
+                      "library": "lucide",
+                      "fill": "$danger"
+                    },
+                    {
+                      "type": "text",
+                      "id": "CnIPs",
+                      "name": "Guardrail Text",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "No hidden ATS keywords or invisible text.",
+                      "lineHeight": 1.42,
+                      "fontFamily": "$sans",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "cxbu4",
+                  "name": "Guardrail / No CV upload to third-pa",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "k9kVi",
+                      "name": "Guardrail Icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "ban",
+                      "library": "lucide",
+                      "fill": "$danger"
+                    },
+                    {
+                      "type": "text",
+                      "id": "uPUn2",
+                      "name": "Guardrail Text",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "No CV upload to third-party services.",
+                      "lineHeight": 1.42,
+                      "fontFamily": "$sans",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "fraJI",
+                  "name": "Guardrail / No quiet failures when s",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "C2Xo1R",
+                      "name": "Guardrail Icon",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "ban",
+                      "library": "lucide",
+                      "fill": "$danger"
+                    },
+                    {
+                      "type": "text",
+                      "id": "VsjZU",
+                      "name": "Guardrail Text",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "No quiet failures when scraping or PDF verification breaks.",
+                      "lineHeight": 1.42,
+                      "fontFamily": "$sans",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "hJ713",
+          "name": "Install Section",
+          "width": "fill_container",
+          "fill": "$paper",
+          "stroke": "#1A1A1A",
+          "strokeWidth": {
+            "top": 1
+          },
+          "layout": "vertical",
+          "gap": 18,
+          "padding": [
+            34,
+            18,
+            26,
+            18
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "zToFL",
+              "name": "Install Eyebrow",
+              "fill": "$muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "start local",
+              "fontFamily": "$mono",
+              "fontSize": 11,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "zfek7",
+              "name": "Install Heading",
+              "fill": "$ink",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Run the MCP, or install the full Agent Plugin.",
+              "lineHeight": 1.06,
+              "fontFamily": "$serif",
+              "fontSize": 32,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "HqzH2",
+              "name": "Install Commands",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 10,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "A8XKB",
+                  "name": "Command / MCP only",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "o3A9Yi",
+                      "name": "Command Label / MCP only",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "MCP only",
+                      "fontFamily": "$mono",
+                      "fontSize": 10,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "RAenJ",
+                      "name": "Command Box / MCP only",
+                      "width": "fill_container",
+                      "fill": "$code",
+                      "stroke": "$ink",
+                      "strokeWidth": 1,
+                      "gap": 10,
+                      "padding": 12,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "UZAQu",
+                          "name": "Command Text / MCP only",
+                          "fill": "$paper",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "uvx job-offer-scraper-mcp",
+                          "fontFamily": "$mono",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "d2UgP",
+                          "name": "Command Copy Icon / MCP only",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "copy",
+                          "library": "lucide",
+                          "fill": "$paper"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "e5lAXw",
+                  "name": "Command / CV skill",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "lK3xd",
+                      "name": "Command Label / CV skill",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "CV skill",
+                      "fontFamily": "$mono",
+                      "fontSize": 10,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "cVi7W",
+                      "name": "Command Box / CV skill",
+                      "width": "fill_container",
+                      "fill": "$code",
+                      "stroke": "$ink",
+                      "strokeWidth": 1,
+                      "gap": 10,
+                      "padding": 12,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "WoxJn",
+                          "name": "Command Text / CV skill",
+                          "fill": "$paper",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "skills/tailor-latex-cv",
+                          "fontFamily": "$mono",
+                          "fontSize": 10,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "u8yHdx",
+                          "name": "Command Copy Icon / CV skill",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "copy",
+                          "library": "lucide",
+                          "fill": "$paper"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "gXT1y",
+                  "name": "Command / Cover letter",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "X6Gmzj",
+                      "name": "Command Label / Cover letter",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Cover letter",
+                      "fontFamily": "$mono",
+                      "fontSize": 10,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "dZHuN",
+                      "name": "Command Box / Cover letter",
+                      "width": "fill_container",
+                      "fill": "$code",
+                      "stroke": "$ink",
+                      "strokeWidth": 1,
+                      "gap": 10,
+                      "padding": 12,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "YNN4E",
+                          "name": "Command Text / Cover letter",
+                          "fill": "$paper",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "skills/write-cover-letter",
+                          "fontFamily": "$mono",
+                          "fontSize": 10,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "x7Di0V",
+                          "name": "Command Copy Icon / Cover letter",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "copy",
+                          "library": "lucide",
+                          "fill": "$paper"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "AGT8r",
+              "name": "Landing Footer",
+              "width": "fill_container",
+              "stroke": "#C5BEB6",
+              "strokeWidth": {
+                "top": 1
+              },
+              "layout": "vertical",
+              "gap": 8,
+              "padding": [
+                18,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "H87NTX",
+                  "name": "Footer Brand",
+                  "fill": "$ink",
+                  "content": "Offer Ready",
+                  "fontFamily": "$serif",
+                  "fontSize": 20,
+                  "fontWeight": "600",
+                  "fontStyle": "italic"
+                },
+                {
+                  "type": "text",
+                  "id": "kMGRa",
+                  "name": "Footer Copy",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Built for people who want a better application, not a fictional one.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$sans",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "paper": {
+      "type": "color",
+      "value": "#F3EBE2"
+    },
+    "ink": {
+      "type": "color",
+      "value": "#1A1A1A"
+    },
+    "muted": {
+      "type": "color",
+      "value": "#5F5850"
+    },
+    "rule": {
+      "type": "color",
+      "value": "#C5BEB6"
+    },
+    "panel": {
+      "type": "color",
+      "value": "#E7DDD1"
+    },
+    "code": {
+      "type": "color",
+      "value": "#11100E"
+    },
+    "cream": {
+      "type": "color",
+      "value": "#FBF7EF"
+    },
+    "accent": {
+      "type": "color",
+      "value": "#D4916E"
+    },
+    "danger": {
+      "type": "color",
+      "value": "#9C2B1A"
+    },
+    "serif": {
+      "type": "string",
+      "value": "Newsreader"
+    },
+    "sans": {
+      "type": "string",
+      "value": "Inter"
+    },
+    "mono": {
+      "type": "string",
+      "value": "IBM Plex Mono"
+    }
+  },
+  "fileToken": "b06116e1-0b62-47f4-85fb-dd211b1bb846"
+}
