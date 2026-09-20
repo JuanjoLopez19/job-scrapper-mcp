@@ -1,7 +1,7 @@
 import logging
 
-from mcp.server import FastMCP
-from mcp.types import ToolAnnotations
+from mcp.server.mcpserver import MCPServer
+from mcp_types import ToolAnnotations
 from pydantic_core import Url
 from requests import RequestException
 
@@ -16,7 +16,7 @@ def _error_response(code: str, message: str) -> dict[str, object]:
     return {"error": {"code": code, "message": message}}
 
 
-app = FastMCP(
+app = MCPServer(
     name="Job Offer Scraper",
     instructions=(
         "Extract structured descriptions and employment criteria from job-offer "

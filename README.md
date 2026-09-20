@@ -33,16 +33,26 @@ The scraper is one narrow tool. The two skills are independent, so you can insta
 
 ## Install
 
+### Scraper library
+
+The default installation contains the scraper and its site extractors, without
+the MCP runtime:
+
+```bash
+uv add job-offer-scraper-mcp
+```
+
 ### Published package
 
-Clients that support MCP server configuration can start the published package with `uvx`:
+MCP support is an optional extra. Clients that accept a command and argument
+list can start the published package with `uvx`:
 
 ```json
 {
   "servers": {
     "job-offer-scraper": {
       "command": "uvx",
-      "args": ["job-offer-scraper-mcp"]
+      "args": ["job-offer-scraper-mcp[mcp]"]
     }
   }
 }
@@ -51,7 +61,7 @@ Clients that support MCP server configuration can start the published package wi
 The same command is the quickest local smoke test:
 
 ```bash
-uvx job-offer-scraper-mcp
+uvx "job-offer-scraper-mcp[mcp]"
 ```
 
 This is a stdio server. Let the MCP client manage its process; do not start it as a background shell process and expect tools to appear automatically.
@@ -65,7 +75,7 @@ The repository includes [`mcp.json`](mcp.json), which declares the server for co
 This project uses [uv](https://docs.astral.sh/uv/) for Python dependencies:
 
 ```bash
-uv sync --dev
+uv sync --dev --extra mcp
 uv run job-offer-scraper-mcp
 ```
 

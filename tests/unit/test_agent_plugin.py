@@ -1,9 +1,20 @@
 import json
+import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).parents[2]
 PLUGIN_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
 MCP_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
+
+
+def test_mcp_runtime_is_an_optional_package_extra() -> None:
+    configuration = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    project = configuration["project"]
+
+    assert all(
+        not dependency.startswith("mcp") for dependency in project["dependencies"]
+    )
+    assert project["optional-dependencies"]["mcp"] == ["mcp>=2.2.0"]
 
 
 def test_portable_plugin_manifest_uses_agent_plugins_v1_layout() -> None:
@@ -41,6 +52,6 @@ def test_mcp_config_declares_the_published_stdio_server() -> None:
         "job-offer-scraper": {
             "type": "stdio",
             "command": "uvx",
-            "args": ["job-offer-scraper-mcp"],
+            "args": ["job-offer-scraper-mcp[mcp]"],
         }
     }
