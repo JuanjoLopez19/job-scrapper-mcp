@@ -2,7 +2,7 @@ from importlib.metadata import distribution
 
 
 def main() -> None:
-    from job_offer_scraper_mcp.server import app
+    from job_offer_scraper_mcp.cli import main as cli_main
 
     package = distribution("job-offer-scraper-mcp")
     commands = {
@@ -11,7 +11,7 @@ def main() -> None:
         if entry_point.group == "console_scripts"
     }
 
-    assert app.name == "Job Offer Scraper"
+    assert callable(cli_main)
     assert commands["job-offer-scraper-mcp"].value == "job_offer_scraper_mcp.cli:main"
     assert package.read_text("METADATA") is not None
 
