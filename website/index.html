@@ -4,19 +4,50 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f3eee4" />
+    <link rel="canonical" href="https://job-scraper-mcp.jjlopez.dev/" />
+    <link rel="icon" type="image/webp" href="./logo.webp" />
     <meta
       name="description"
       content="Open-source MCP server and agent skills that extract public job offers, tailor a LaTeX CV, and write a cover letter without inventing experience."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Offer Ready" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://job-scraper-mcp.jjlopez.dev/" />
     <meta property="og:title" content="Offer Ready — job-offer MCP and skills" />
     <meta
       property="og:description"
       content="A public job URL in. Structured requirements, a verified CV, or a cover letter out — only from evidence you already have."
     />
-    <meta property="og:image" content="./og.png" />
+    <meta
+      property="og:image"
+      content="https://job-scraper-mcp.jjlopez.dev/og.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://job-scraper-mcp.jjlopez.dev/og.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Offer Ready — Fetch the job. Keep the candidate real."
+    />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="./og.png" />
+    <meta name="twitter:title" content="Offer Ready — job-offer MCP and skills" />
+    <meta
+      name="twitter:description"
+      content="A public job URL in. Structured requirements, a verified CV, or a cover letter out — only from evidence you already have."
+    />
+    <meta
+      name="twitter:image"
+      content="https://job-scraper-mcp.jjlopez.dev/og.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Offer Ready — Fetch the job. Keep the candidate real."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -30,7 +61,10 @@
 
     <div class="site-shell" id="top">
       <header class="site-header">
-        <a class="brand" href="#top">Offer Ready</a>
+        <a class="brand" href="#top">
+          <img class="brand-mark" src="./logo.webp" alt="" width="32" height="32" />
+          <span>Offer Ready</span>
+        </a>
         <nav class="site-nav" aria-label="Main navigation">
           <a href="#pieces">Pieces</a>
           <a href="#workflow">Workflow</a>
@@ -77,8 +111,8 @@
                 Install locally
               </a>
               <div class="hero-command">
-                <code>uvx job-offer-scraper-mcp</code>
-                <button class="copy-button" data-copy="uvx job-offer-scraper-mcp" type="button">
+                <code>uvx "job-offer-scraper-mcp[mcp]"</code>
+                <button class="copy-button" data-copy="uvx &quot;job-offer-scraper-mcp[mcp]&quot;" type="button">
                   <span>Copy</span>
                 </button>
               </div>
@@ -171,14 +205,21 @@
         <div class="install-intro">
           <p class="eyebrow">start local</p>
           <h2 id="install-title">Run the MCP, or install the full Agent Plugin.</h2>
-          <p>Built for people who want a better application, not a fictional one.</p>
+          <p>The base package installs only the scraper. Add <code>[mcp]</code> when you want to run the MCP server.</p>
         </div>
         <div class="commands">
           <div class="command">
-            <span class="command-label">MCP only</span>
+            <span class="command-label">Scraper library</span>
             <div class="command-row">
-              <code>uvx job-offer-scraper-mcp</code>
-              <button class="copy-button" data-copy="uvx job-offer-scraper-mcp" type="button"><span>Copy</span></button>
+              <code>uv add job-offer-scraper-mcp</code>
+              <button class="copy-button" data-copy="uv add job-offer-scraper-mcp" type="button"><span>Copy</span></button>
+            </div>
+          </div>
+          <div class="command">
+            <span class="command-label">MCP server</span>
+            <div class="command-row">
+              <code>uvx "job-offer-scraper-mcp[mcp]"</code>
+              <button class="copy-button" data-copy="uvx &quot;job-offer-scraper-mcp[mcp]&quot;" type="button"><span>Copy</span></button>
             </div>
           </div>
           <div class="command">
@@ -199,7 +240,10 @@
       </section>
 
       <footer>
-        <a class="brand" href="#top">Offer Ready</a>
+        <a class="brand" href="#top">
+          <img class="brand-mark" src="./logo.webp" alt="" width="28" height="28" />
+          <span>Offer Ready</span>
+        </a>
         <p class="footer-copy">Open-source job-application tooling grounded in evidence.</p>
         <div class="footer-links">
           <a href="https://pypi.org/project/job-offer-scraper-mcp/" target="_blank" rel="noreferrer">PyPI</a>
