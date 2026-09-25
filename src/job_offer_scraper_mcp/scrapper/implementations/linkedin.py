@@ -17,10 +17,13 @@ class LinkedinScrapper(JobOfferExtractor):
     )
 
     def find_job_offer_info(self, html: bs):
-        job_offer = html.find("section", class_="core-section-container")
-        if job_offer is None:
-            return None
-        return job_offer
+        for section in html.find_all("section", class_="core-section-container"):
+            if section.find("div", class_="show-more-less-html__markup"):
+                return section
+
+        if html.find("div", class_="show-more-less-html__markup"):
+            return html
+        return None
 
     def find_job_description(self, html: bs):
         description = html.find("div", class_="show-more-less-html__markup")
@@ -53,6 +56,10 @@ class LinkedinScrapper(JobOfferExtractor):
         return "\n".join(criteria_list)
 
     def find_job_title(self, html: bs):
+        title = html.find("h1", class_="topcard__title")
+        if title is not None:
+            return title.get_text(" ", strip=True)
+
         title_tag = html.find("title")
         if title_tag is None:
             return None
@@ -64,6 +71,10 @@ class LinkedinScrapper(JobOfferExtractor):
         return match.group(2)
 
     def find_job_company(self, html: bs):
+        company = html.find("a", class_="topcard__org-name-link")
+        if company is not None:
+            return company.get_text(" ", strip=True)
+
         title_tag = html.find("title")
         if title_tag is None:
             return None
@@ -74,6 +85,10 @@ class LinkedinScrapper(JobOfferExtractor):
         return match.group(1)
 
     def find_job_location(self, html: bs):
+        location = html.find("span", class_="topcard__flavor--bullet")
+        if location is not None:
+            return location.get_text(" ", strip=True)
+
         title_tag = html.find("title")
         if title_tag is None:
             return None
