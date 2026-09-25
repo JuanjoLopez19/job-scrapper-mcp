@@ -34,6 +34,30 @@ def test_find_job_offer_info_without_main_content_returns_none(
     assert scraper.find_job_offer_info(BeautifulSoup("", "html.parser")) is None
 
 
+def test_antibot_page_requires_browser_fallback(scraper: InfoJobsScrapper) -> None:
+    soup = BeautifulSoup(
+        """
+        <p>Comprueba que JavaScript esté habilitado en tu navegador y que no
+        tengas ningún plugin que impida su carga.</p>
+        <a href="https://www.infojobs.net">www.infojobs.net</a>
+        """,
+        "html.parser",
+    )
+
+    assert scraper.is_browser_fallback_required(soup) is True
+
+
+def test_regular_page_does_not_require_browser_fallback(
+    scraper: InfoJobsScrapper,
+) -> None:
+    soup = BeautifulSoup(
+        ('<div class="ij-OfferDetailPage-mainContent-container"></div>'),
+        "html.parser",
+    )
+
+    assert scraper.is_browser_fallback_required(soup) is False
+
+
 def test_find_job_description_extracts_normalized_text(
     scraper: InfoJobsScrapper,
 ) -> None:

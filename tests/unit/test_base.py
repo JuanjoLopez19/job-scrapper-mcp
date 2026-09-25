@@ -102,14 +102,13 @@ def test_each_extractor_has_its_own_http_session() -> None:
     assert first.session is not second.session
 
 
-@patch("seleniumbase.Driver")
-def test_selenium_driver_is_closed_when_navigation_fails(
-    driver_factory: Mock,
+@patch("seleniumbase.SB")
+def test_selenium_browser_is_closed_when_navigation_fails(
+    browser_manager: Mock,
     monkeypatch,
 ) -> None:
-    driver = Mock()
-    driver.get.side_effect = RuntimeError("browser failed")
-    driver_factory.return_value = driver
+    browser = browser_manager.return_value.__enter__.return_value
+    browser.uc_open_with_reconnect.side_effect = RuntimeError("browser failed")
     monkeypatch.setattr(
         "job_offer_scraper_mcp.scrapper.base.validate_public_http_url", Mock()
     )
@@ -126,4 +125,10 @@ def test_selenium_driver_is_closed_when_navigation_fails(
     result = scraper.extract()
 
     assert result is None
-    driver.quit.assert_called_once_with()
+    browser_manager.assert_called_once_with(
+        uc=True,
+        xvfb=True,
+        headless=True,
+        locale_code="es",
+    )
+    browser_manager.return_value.__exit__.assert_called_once()

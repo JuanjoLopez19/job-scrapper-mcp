@@ -2,7 +2,7 @@ import logging
 import random
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import Any, Protocol, cast
+from typing import Any, Protocol
 
 from bs4 import BeautifulSoup as bs
 from pydantic_core import Url
@@ -16,13 +16,13 @@ logger = logging.getLogger(__name__)
 
 
 class SeleniumDriver(Protocol):
-    page_source: str
-
-    def get(self, url: str) -> None: ...
+    def uc_open_with_reconnect(self, url: str, reconnect_time: int) -> None: ...
 
     def sleep(self, seconds: int) -> None: ...
 
-    def quit(self) -> None: ...
+    def wait_for_element_present(self, selector: str, timeout: int) -> Any: ...
+
+    def get_page_source(self) -> str: ...
 
 
 def _default_headers() -> dict[str, str]:
@@ -52,7 +52,11 @@ class JobOfferExtractor(ABC):
                 self.url,
                 headers=self.headers,
             )
-            return bs(response.text, "html.parser")
+            html = bs(response.text, "html.parser")
+            if self.is_browser_fallback_required(html):
+                logger.warning("Blocked HTTP response; trying browser fallback")
+                return self.__extract_html_selenium()
+            return html
         except exceptions.RequestException:
             logger.warning("HTTP extraction failed; trying browser fallback")
             return self.__extract_html_selenium()
@@ -77,27 +81,33 @@ class JobOfferExtractor(ABC):
         self.criteria = job_criteria if job_criteria else None
 
     def __extract_html_selenium(self) -> bs | None:
-        from seleniumbase import Driver
+        from seleniumbase import SB
 
-        driver: SeleniumDriver | None = None
         try:
             validate_public_http_url(str(self.url))
-            driver = cast(
-                SeleniumDriver,
-                cast(Any, Driver)(uc=True, headless=True, disable_gpu=True),
-            )
-            driver.get(str(self.url))
-            driver.sleep(5)
-            return bs(driver.page_source, "html.parser")
+            with SB(
+                uc=True,
+                xvfb=True,
+                headless=True,
+                locale_code="es",
+            ) as driver:
+                browser = driver  # type: SeleniumDriver
+                browser.uc_open_with_reconnect(str(self.url), reconnect_time=4)
+                selector = self.get_browser_ready_selector()
+                if selector is None:
+                    browser.sleep(5)
+                else:
+                    browser.wait_for_element_present(selector, timeout=15)
+                return bs(browser.get_page_source(), "html.parser")
         except Exception:
             logger.exception("Browser extraction failed")
             return None
-        finally:
-            if driver is not None:
-                try:
-                    driver.quit()
-                except Exception:
-                    logger.exception("Unable to close browser driver")
+
+    def is_browser_fallback_required(self, html: bs) -> bool:
+        return False
+
+    def get_browser_ready_selector(self) -> str | None:
+        return None
 
     def get_job_description(self) -> str | None:
         return self.description

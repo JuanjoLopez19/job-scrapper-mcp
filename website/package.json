@@ -7,7 +7,7 @@
     "dev": "vite --configLoader runner",
     "build": "tsc --noEmit && vite build --configLoader runner",
     "preview": "vite preview",
-    "check": "biome check . && tsc --noEmit"
+    "check": "biome check . --write && tsc --noEmit"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.6",

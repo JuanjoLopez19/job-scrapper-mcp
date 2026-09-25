@@ -1,11 +1,7 @@
 import re
 from dataclasses import dataclass
-from sys import argv
-from typing import cast
 
 from bs4 import BeautifulSoup as bs
-from bs4 import Tag
-from pydantic_core import Url
 
 from job_offer_scraper_mcp.scrapper.base import JobOfferExtractor
 from job_offer_scraper_mcp.scrapper.config import SupportedSites
@@ -37,12 +33,12 @@ class LinkedinScrapper(JobOfferExtractor):
         criteria = html.find("ul", class_="description__job-criteria-list")
         if criteria is None:
             return None
-        items = cast(Tag, criteria).find_all("li")
+        items = criteria.find_all("li")
         criteria_list = []
         for li in items:
             if self.type not in criteria_handler:
                 return None
-            li = cast(Tag, li)
+            li = li
             h3 = li.find("h3")
             if h3 is None:
                 return None
@@ -89,11 +85,14 @@ class LinkedinScrapper(JobOfferExtractor):
 
 
 if __name__ == "__main__":
+    from sys import argv
+
+    from pydantic_core import Url
+
     from job_offer_scraper_mcp.scrapper.factory import FactoryScrapper
 
     url = Url(argv[1])
 
     scrapper = FactoryScrapper.get_scrapper(url)
     scrapper.extract()
-    print(scrapper.get_job_description())
-    print(scrapper.get_job_criteria())
+    print(scrapper.get_job_offer_info())

@@ -16,6 +16,14 @@ class InfoJobsScrapper(JobOfferExtractor):
     type: str = SupportedSites.INFOJOBS.value
     job_offer_title_pattern = re.compile(r"^Oferta de empleo:\s(.*)en\s(.*)\s-")
     job_offer_company_pattern = re.compile(r"en la empresa\s(.*)\.\s")
+    offer_container_selector = "div.ij-OfferDetailPage-mainContent-container"
+
+    def is_browser_fallback_required(self, html: bs) -> bool:
+        text = html.get_text(" ", strip=True).lower()
+        return "javascript" in text and "infojobs.net" in text and "plugin" in text
+
+    def get_browser_ready_selector(self) -> str:
+        return self.offer_container_selector
 
     def find_job_offer_info(self, html: bs):
         container = html.find(
@@ -31,7 +39,7 @@ class InfoJobsScrapper(JobOfferExtractor):
         if len(section) < 2:
             return None
 
-        section = cast(Tag, section[1])
+        section = section[1]
         div = section.find(
             "div", {"class": "ij-Box mb-xl mt-l ij-EnrichedTextArea-paragraph"}
         )
@@ -46,16 +54,16 @@ class InfoJobsScrapper(JobOfferExtractor):
         if len(section) < 2:
             return None
 
-        dl_tag = cast(Tag, section[0]).find("dl")
+        dl_tag = section[0].find("dl")
         if dl_tag is None:
             return None
-        dl_tag = cast(Tag, dl_tag)
+        dl_tag = dl_tag
         criteria_1 = self.__extract_criteria(dl_tag)
 
-        dl_tag = cast(Tag, section[1]).find("dl")
+        dl_tag = section[1].find("dl")
         if dl_tag is None:
             return None
-        dl_tag = cast(Tag, dl_tag)
+        dl_tag = dl_tag
         criteria_2 = self.__extract_criteria(dl_tag)
         return f"{criteria_1}\n{criteria_2}".strip()
 
@@ -74,7 +82,7 @@ class InfoJobsScrapper(JobOfferExtractor):
         meta_tag = html.find("meta", {"name": "description"})
         if meta_tag is None:
             return None
-        meta_tag = cast(Tag, meta_tag)
+        meta_tag = meta_tag
         content = meta_tag.get("content", "")
         if content is None:
             return None
@@ -101,7 +109,7 @@ class InfoJobsScrapper(JobOfferExtractor):
         for dd_tag, dt_tag in zip(dd_tags, dt_tags, strict=False):
             dt_tag_text = dt_tag.text.strip()
             if dt_tag_text == "Conocimientos necesarios":
-                a_tags = cast(Tag, dd_tag).find_all("a")
+                a_tags = dd_tag.find_all("a")
                 knowledge = []
                 if a_tags is not None and len(a_tags) > 0:
                     for a_tag in a_tags:
@@ -114,7 +122,9 @@ class InfoJobsScrapper(JobOfferExtractor):
 
 
 if __name__ == "__main__":
-    from pprint import pprint
+    from sys import argv
+
+    from pydantic_core import Url
 
     from job_offer_scraper_mcp.scrapper.factory import FactoryScrapper
 
@@ -122,4 +132,4 @@ if __name__ == "__main__":
 
     scrapper = FactoryScrapper.get_scrapper(url)
     scrapper.extract()
-    pprint(scrapper.get_job_offer_info().model_dump())
+    print(scrapper.get_job_offer_info())

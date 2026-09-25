@@ -13,16 +13,35 @@ def scraper() -> IndeedScrapper:
 
 
 def soup_with_structured_data(**data: object) -> BeautifulSoup:
-    payload = json.dumps(data)
+    payload = json.dumps({"@type": "JobPosting", **data})
     return BeautifulSoup(
         f'<script type="application/ld+json">{payload}</script>', "html.parser"
     )
 
 
 def test_find_job_description_reads_structured_data(scraper: IndeedScrapper) -> None:
-    soup = soup_with_structured_data(description="Platform engineer")
+    soup = soup_with_structured_data(
+        description="<p>Platform engineer</p><ul><li>Python</li><li>APIs</li></ul>"
+    )
 
-    assert scraper.find_job_description(soup) == "Platform engineer"
+    assert scraper.find_job_description(soup) == "Platform engineer\nPython\nAPIs"
+
+
+def test_page_without_job_posting_requires_browser_fallback(
+    scraper: IndeedScrapper,
+) -> None:
+    soup = BeautifulSoup(
+        "<html><p>Additional verification required</p></html>", "html.parser"
+    )
+
+    assert scraper.is_browser_fallback_required(soup) is True
+
+
+def test_page_with_job_posting_does_not_require_browser_fallback(
+    scraper: IndeedScrapper,
+) -> None:
+    assert scraper.is_browser_fallback_required(soup_with_structured_data()) is False
+    assert scraper.get_browser_ready_selector() == 'script[type="application/ld+json"]'
 
 
 def test_find_job_metadata_reads_structured_data(scraper: IndeedScrapper) -> None:
@@ -74,3 +93,16 @@ def test_find_job_data_without_json_returns_none(scraper: IndeedScrapper) -> Non
     assert scraper.find_job_title(soup) is None
     assert scraper.find_job_company(soup) is None
     assert scraper.find_job_location(soup) is None
+
+
+def test_invalid_or_unrelated_json_ld_is_ignored(scraper: IndeedScrapper) -> None:
+    soup = BeautifulSoup(
+        """
+        <script type="application/ld+json">not-json</script>
+        <script type="application/ld+json">{"@type": "WebSite"}</script>
+        """,
+        "html.parser",
+    )
+
+    assert scraper.find_job_title(soup) is None
+    assert scraper.is_browser_fallback_required(soup) is True
