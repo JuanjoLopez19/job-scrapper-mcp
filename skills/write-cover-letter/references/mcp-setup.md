@@ -9,7 +9,7 @@ For a standalone skill installation, configure a client that accepts a command a
   "servers": {
     "job-offer-scraper": {
       "command": "uvx",
-      "args": ["job-offer-scraper-mcp"]
+      "args": ["job-offer-scraper-mcp[mcp]"]
     }
   }
 }
@@ -24,7 +24,7 @@ To run from the repository source before a compatible package release is availab
       "command": "uvx",
       "args": [
         "--from",
-        "git+https://github.com/JuanjoLopez19/job-scrapper-mcp.git",
+        "job-offer-scraper-mcp[mcp] @ git+https://github.com/JuanjoLopez19/job-scrapper-mcp.git",
         "job-offer-scraper-mcp"
       ]
     }

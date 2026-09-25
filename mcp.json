@@ -4,7 +4,7 @@
     "job-offer-scraper": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["job-offer-scraper-mcp"]
+      "args": ["job-offer-scraper-mcp[mcp]"]
     }
   }
 }

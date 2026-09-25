@@ -16,7 +16,7 @@ Configure clients that accept a command and argument list with:
   "servers": {
     "job-offer-scraper": {
       "command": "uvx",
-      "args": ["job-offer-scraper-mcp"]
+      "args": ["job-offer-scraper-mcp[mcp]"]
     }
   }
 }
@@ -33,7 +33,7 @@ Before a usable package release is available, configure:
       "command": "uvx",
       "args": [
         "--from",
-        "git+https://github.com/JuanjoLopez19/job-scrapper-mcp.git",
+        "job-offer-scraper-mcp[mcp] @ git+https://github.com/JuanjoLopez19/job-scrapper-mcp.git",
         "job-offer-scraper-mcp"
       ]
     }
