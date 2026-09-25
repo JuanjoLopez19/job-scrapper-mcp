@@ -1,10 +1,8 @@
 import json
 from dataclasses import dataclass
 from sys import argv
-from typing import cast
 
 from bs4 import BeautifulSoup as bs
-from bs4 import Tag
 
 from job_offer_scraper_mcp.scrapper.base import JobOfferExtractor
 from job_offer_scraper_mcp.scrapper.config import SupportedSites
@@ -95,10 +93,12 @@ class IndeedScrapper(JobOfferExtractor):
         if script is None:
             return None
 
-        return json.loads(cast(Tag, script).string or "")
+        return json.loads(script.string or "")
 
 
 if __name__ == "__main__":
+    from sys import argv
+
     from pydantic_core import Url
 
     from job_offer_scraper_mcp.scrapper.factory import FactoryScrapper

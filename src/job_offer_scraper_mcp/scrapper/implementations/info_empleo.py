@@ -31,14 +31,14 @@ class InfoEmpleoScrapper(JobOfferExtractor):
         criteria = html.find("div", {"class": "offer-excerpt"})
         if criteria is None:
             return None
-        ul = cast(Tag, criteria).find_all("ul", {"class": "inline"})
+        ul = criteria.find_all("ul", {"class": "inline"})
         if not ul:
             return None
         criteria_list = []
-        row_1 = cast(Tag, ul[1])
-        row_2 = cast(Tag, ul[3])
+        row_1 = ul[1]
+        row_2 = ul[3]
 
-        type = cast(Tag, row_2.find_all("li").pop()).find("p")
+        type = row_2.find_all("li").pop().find("p")
         if type is None:
             return None
         type = type.text.strip()
@@ -46,9 +46,9 @@ class InfoEmpleoScrapper(JobOfferExtractor):
         function = row_1.find("ul", {"class": "position-name"})
         if function is None:
             return None
-        function = cast(Tag, function).text.strip()
+        function = function.text.strip()
 
-        level = cast(Tag, row_1.find_all("li").pop()).find("p")
+        level = row_1.find_all("li").pop().find("p")
         if level is None:
             return None
         level = level.text.strip()
@@ -85,7 +85,7 @@ class InfoEmpleoScrapper(JobOfferExtractor):
         if company_info_ul is None:
             return None
 
-        company_info_li = cast(Tag, company_info_ul).select_one("li.companyname")
+        company_info_li = company_info_ul.select_one("li.companyname")
         if company_info_li is None:
             return None
         company_name = cast(Tag, company_info_li.select_one("a"))
@@ -107,11 +107,14 @@ class InfoEmpleoScrapper(JobOfferExtractor):
 
 
 if __name__ == "__main__":
+    from sys import argv
+
+    from pydantic_core import Url
+
     from job_offer_scraper_mcp.scrapper.factory import FactoryScrapper
 
     url = Url(argv[1])
 
     scrapper = FactoryScrapper.get_scrapper(url)
     scrapper.extract()
-    print(scrapper.get_job_description())
-    print(scrapper.get_job_criteria())
+    print(scrapper.get_job_offer_info())

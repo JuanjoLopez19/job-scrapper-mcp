@@ -36,7 +36,7 @@ class TecnoEmpleoScrapper(JobOfferExtractor):
         if script is None:
             return None
 
-        data = json.loads(cast(Tag, script).string or "")
+        data = json.loads(script.string or "")
         if data is None:
             return None
         return data.get("description", "No description available")
@@ -53,11 +53,11 @@ class TecnoEmpleoScrapper(JobOfferExtractor):
         list_items = criteria_list_tag.find_all("li")
 
         for item in list_items:
-            item = cast(Tag, item)
+            item = item
             icon = item.find("i", {"class": "fi"})
             if icon is None:
                 continue
-            icon = cast(Tag, icon)
+            icon = icon
             icon_class = icon.get("class")
             if icon_class is None:
                 continue
@@ -117,4 +117,4 @@ if __name__ == "__main__":
 
     scrapper = FactoryScrapper.get_scrapper(url)
     scrapper.extract()
-    print(scrapper.get_job_criteria())
+    print(scrapper.get_job_offer_info())
