@@ -1,7 +1,6 @@
 import json
 import re
 from dataclasses import dataclass
-from typing import cast
 
 from bs4 import BeautifulSoup as bs
 from bs4 import Tag

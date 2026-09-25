@@ -88,6 +88,7 @@ class JobOfferExtractor(ABC):
             with SB(
                 uc=True,
                 xvfb=True,
+                headless=True,
                 locale_code="es",
             ) as driver:
                 browser = driver  # type: SeleniumDriver

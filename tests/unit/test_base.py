@@ -128,6 +128,7 @@ def test_selenium_browser_is_closed_when_navigation_fails(
     browser_manager.assert_called_once_with(
         uc=True,
         xvfb=True,
+        headless=True,
         locale_code="es",
     )
     browser_manager.return_value.__exit__.assert_called_once()
