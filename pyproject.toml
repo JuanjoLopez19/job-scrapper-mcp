@@ -43,7 +43,6 @@ include = ["job_offer_scraper_mcp*"]
 dev = [
     "ipykernel>=6.29.5",
     "mcp>=2.2.0",
-    "pypdf==6.19.0",
     "uv>=0.6.16",
     "pytest",
     "ruff>=0.15.22",
