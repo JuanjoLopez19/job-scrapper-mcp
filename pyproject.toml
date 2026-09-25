@@ -77,5 +77,5 @@ quote-style = "double"
 
 [tool.pyrefly]
 project-includes = ["**/*.py*"]
-project-excludes = ["**/*.ipynb", "tests/**"]
+project-excludes = ["**/*.ipynb", "tests/**", "skills/tailor-latex-cv/scripts/**"]
 search-path = ["src"]
