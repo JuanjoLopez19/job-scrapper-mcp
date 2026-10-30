@@ -51,7 +51,7 @@ dev = [
     "types-requests>=2.33.0.20260712",
 ]
 [project.optional-dependencies]
-pdf = ["pypdf==6.20.0"]
+pdf = ["pypdf==6.21.4"]
 
 mcp = ["mcp>=2.2.0"]
 
